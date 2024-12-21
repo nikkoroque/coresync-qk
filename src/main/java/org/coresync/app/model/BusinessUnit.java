@@ -33,6 +33,33 @@ public class BusinessUnit {
     @Column(name = "bu_country")
     private String buCountry;
 
+    // No-argument constructor (required by JPA)
+    public BusinessUnit() {
+    }
+
+    // Constructor with arguments for testing or convenience
+    public BusinessUnit(Integer buId, String buDesc, String buGln, String buCity, String buState, String buZip, String buCountry) {
+        this.buId = buId;
+        this.buDesc = buDesc;
+        this.buGln = buGln;
+        this.buCity = buCity;
+        this.buState = buState;
+        this.buZip = buZip;
+        this.buCountry = buCountry;
+    }
+
+    public BusinessUnit(Integer buId, String buDesc, String buGln, String buAdd1, String buAdd2, String buCity, String buState, String buZip, String buCountry) {
+        this.buId = buId;
+        this.buDesc = buDesc;
+        this.buGln = buGln;
+        this.buAdd1 = buAdd1;
+        this.buAdd2 = buAdd2;
+        this.buCity = buCity;
+        this.buState = buState;
+        this.buZip = buZip;
+        this.buCountry = buCountry;
+    }
+
     public int getBuId() {
         return buId;
     }
