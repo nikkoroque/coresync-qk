@@ -1,4 +1,4 @@
-package org.coresync.app.repository;
+package org.coresync.app.repository.inventory;
 
 import com.speedment.jpastreamer.application.JPAStreamer;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -141,7 +141,7 @@ public class BusinessUnitRepository {
     @Transactional
     public BusinessUnit updateBusinessUnit(BusinessUnit businessUnit) {
         if (!businessUnitExists(businessUnit.getBuId())) {
-            throw new IllegalArgumentException("BusinessUnit with ID " + businessUnit.getBuId() + " does not exist.");
+            throw new IllegalArgumentException("Business Unit with ID " + businessUnit.getBuId() + " does not exist.");
         }
         return entityManager.merge(businessUnit);
     }
@@ -155,7 +155,7 @@ public class BusinessUnitRepository {
     public void deleteBusinessUnit(int buId) {
         BusinessUnit businessUnit = entityManager.find(BusinessUnit.class, buId);
         if (businessUnit == null) {
-            throw new IllegalArgumentException("BusinessUnit with ID " + buId + " does not exist.");
+            throw new IllegalArgumentException("Business Unit with ID " + buId + " does not exist.");
         }
         entityManager.remove(businessUnit);
     }
@@ -167,7 +167,7 @@ public class BusinessUnitRepository {
      * @return true if the Business Unit exists, false otherwise.
      */
     public boolean businessUnitExists(int buId) {
-        return entityManager.find(BusinessUnit.class, buId) != null;
+        return jpaStreamer.stream(BusinessUnit.class).anyMatch(BusinessUnit$.buId.equal(buId));
     }
 
     /**

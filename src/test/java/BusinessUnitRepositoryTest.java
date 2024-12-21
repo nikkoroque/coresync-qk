@@ -1,7 +1,7 @@
 import com.speedment.jpastreamer.application.JPAStreamer;
 import jakarta.persistence.EntityManager;
 import org.coresync.app.model.BusinessUnit;
-import org.coresync.app.repository.BusinessUnitRepository;
+import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -109,16 +109,36 @@ public class BusinessUnitRepositoryTest {
 
     @Test
     void testUpdateBusinessUnit() {
+        // Arrange
         BusinessUnit existingUnit = new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1");
 
-        when(entityManager.find(BusinessUnit.class, 1)).thenReturn(existingUnit);
-        when(entityManager.merge(existingUnit)).thenReturn(existingUnit);
+        when(jpaStreamer.stream(BusinessUnit.class))
+                .thenReturn(Stream.of(existingUnit)); // Simulate existence
+        when(entityManager.merge(existingUnit)).thenReturn(existingUnit); // Mock merge behavior
 
+        // Act
         BusinessUnit result = businessUnitRepository.updateBusinessUnit(existingUnit);
 
-        assertNotNull(result);
-        assertEquals(existingUnit, result);
-        verify(entityManager, times(1)).merge(existingUnit);
+        // Assert
+        assertNotNull(result, "The updated business unit should not be null");
+        assertEquals(existingUnit, result, "The updated business unit should match the input");
+        verify(jpaStreamer, times(1)).stream(BusinessUnit.class); // Validate stream call
+        verify(entityManager, times(1)).merge(existingUnit); // Validate merge call
+    }
+
+
+    @Test
+    void testBusinessUnitExists() {
+        // Arrange
+        when(jpaStreamer.stream(BusinessUnit.class))
+                .thenReturn(Stream.of(new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1")));
+
+        // Act
+        boolean exists = businessUnitRepository.businessUnitExists(1);
+
+        // Assert
+        assertTrue(exists, "Business unit with ID 1 should exist");
+        verify(jpaStreamer, times(1)).stream(BusinessUnit.class);
     }
 
     @Test
@@ -131,17 +151,5 @@ public class BusinessUnitRepositoryTest {
         businessUnitRepository.deleteBusinessUnit(1);
 
         verify(entityManager, times(1)).remove(mockUnit);
-    }
-
-    @Test
-    void testBusinessUnitExists() {
-        BusinessUnit mockUnit = new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1");
-
-        when(entityManager.find(BusinessUnit.class, 1)).thenReturn(mockUnit);
-
-        boolean exists = businessUnitRepository.businessUnitExists(1);
-
-        assertTrue(exists);
-        verify(entityManager, times(1)).find(BusinessUnit.class, 1);
     }
 }

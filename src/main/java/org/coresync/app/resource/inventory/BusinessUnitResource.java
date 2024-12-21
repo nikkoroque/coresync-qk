@@ -1,11 +1,11 @@
-package org.coresync.app.resource;
+package org.coresync.app.resource.inventory;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.BusinessUnit;
-import org.coresync.app.repository.BusinessUnitRepository;
+import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Path("/api/bu")
+@Path("/api/business-unit")
 @Tag(name = "Business Unit Resource", description = "API for managing business units.")
 public class BusinessUnitResource {
 
@@ -26,7 +26,7 @@ public class BusinessUnitResource {
      * @return List of all Business Units.
      */
     @GET
-    @Path("/")
+    @Path("/") // /api/business-unit/
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get all Business Units", description = "Fetches all business units without pagination.")
     public List<BusinessUnit> getBusinessUnits() {
@@ -117,6 +117,7 @@ public class BusinessUnitResource {
      * Add a new Business Unit.
      *
      * @param businessUnit the Business Unit to add.
+     *
      * @return Response containing the created Business Unit.
      */
     @POST
@@ -200,16 +201,16 @@ public class BusinessUnitResource {
      * @return Response indicating if the Business Unit exists.
      */
     @GET
-    @Path("/exists/{buId}")
+    @Path("/validate/{buId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
             summary = "Check Business Unit existence",
             description = "Validates whether a business unit with the given ID exists."
     )
-    public Response validateBusinessUnitExists(@PathParam("buId") int buId) {
-        boolean exists = businessUnitRepository.businessUnitExists(buId);
+    public Response validateBusinessUnit(@PathParam("buId") int buId) {
+        boolean isValid = businessUnitRepository.businessUnitExists(buId);
 
-        if (exists) {
+        if (isValid) {
             return Response.status(Response.Status.FOUND)
                     .entity("{\"message\":\"Business Unit exists\", \"buId\":" + buId + "}")
                     .build();

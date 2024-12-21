@@ -1,13 +1,8 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.coresync.app.model.BusinessUnit;
-import org.coresync.app.repository.BusinessUnitRepository;
-import org.coresync.app.resource.BusinessUnitResource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -15,16 +10,9 @@ import static org.hamcrest.Matchers.is;
 
 public class BusinessUnitResourceTest {
 
-    @InjectMocks
-    private BusinessUnitResource businessUnitResource;
-
-    @Mock
-    private BusinessUnitRepository businessUnitRepository;
-
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        RestAssured.baseURI = "http://localhost:8080/api/bu";
+        RestAssured.baseURI = "http://localhost:8080/api/business-unit";
     }
 
     @Test
@@ -130,7 +118,7 @@ public class BusinessUnitResourceTest {
         // Step 3: Validate Business Unit Exists
         given()
                 .when()
-                .get("/exists/999")
+                .get("/validate/999")
                 .then()
                 .statusCode(302)
                 .body("message", is("Business Unit exists"));
@@ -145,11 +133,9 @@ public class BusinessUnitResourceTest {
         // Step 5: Ensure Business Unit No Longer Exists
         given()
                 .when()
-                .get("/exists/999")
+                .get("/validate/999")
                 .then()
                 .statusCode(404)
                 .body("message", is("Business Unit not found"));
     }
-
-
 }
