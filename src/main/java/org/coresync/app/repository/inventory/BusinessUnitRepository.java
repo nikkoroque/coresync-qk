@@ -9,9 +9,7 @@ import org.coresync.app.model.BusinessUnit;
 import org.coresync.app.model.BusinessUnit$;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ApplicationScoped
@@ -24,15 +22,6 @@ public class BusinessUnitRepository {
     private EntityManager entityManager;
 
     private static final int PAGE_SIZE = 20;
-
-    /**
-     * Fetch all Business Units.
-     *
-     * @return List of all Business Units.
-     */
-    public List<BusinessUnit> getAllBusinessUnits() {
-        return jpaStreamer.stream(BusinessUnit.class).collect(Collectors.toList());
-    }
 
     /**
      * Fetch paginated Business Units with sorting.

@@ -32,22 +32,6 @@ public class BusinessUnitRepositoryTest {
     }
 
     @Test
-    void testGetAllBusinessUnits() {
-        List<BusinessUnit> mockUnits = List.of(
-                new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1"),
-                new BusinessUnit(2, "Unit 2", "GLN2", "City2", "State2", "Zip2", "Country2")
-        );
-
-        when(jpaStreamer.stream(BusinessUnit.class)).thenReturn(mockUnits.stream());
-
-        List<BusinessUnit> result = businessUnitRepository.getAllBusinessUnits();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        verify(jpaStreamer, times(1)).stream(BusinessUnit.class);
-    }
-
-    @Test
     void testGetPaginatedBusinessUnit() {
         List<BusinessUnit> mockUnits = List.of(
                 new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1"),

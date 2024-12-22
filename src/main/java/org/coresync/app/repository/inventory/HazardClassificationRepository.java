@@ -10,9 +10,7 @@ import org.coresync.app.model.HazardClassification$;
 
 import java.sql.Timestamp;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ApplicationScoped
@@ -25,16 +23,6 @@ public class HazardClassificationRepository {
     private EntityManager entityManager;
 
     private static final int PAGE_SIZE = 20;
-
-
-    /**
-     * Fetch all Hazard Classification.
-     *
-     * @return List of all Hazard Classification.
-     */
-    public List<HazardClassification> getAllHazardClassifications() {
-        return jpaStreamer.stream(HazardClassification.class).collect(Collectors.toList());
-    }
 
     /**
      * Fetch paginated Hazard Classifications with sorting.
@@ -55,22 +43,22 @@ public class HazardClassificationRepository {
                 case "id":
                     comparator = Comparator.comparing(HazardClassification::getId);
                     break;
-                case "hzrd_cls_desc":
-                    comparator = Comparator.comparing(HazardClassification::getHzrdClsDesc);
-                    break;
-                case "hzrd_cls_cd":
+                case "hzrdclscd":
                     comparator = Comparator.comparing(HazardClassification::getHzrdClsCd);
                     break;
-                case "creation_date":
+                case "hzrdclsdesc":
+                    comparator = Comparator.comparing(HazardClassification::getHzrdClsDesc);
+                    break;
+                case "creationdate":
                     comparator = Comparator.comparing(HazardClassification::getCreationDate);
                     break;
-                case "created_by_user":
+                case "createdbyuser":
                     comparator = Comparator.comparing(HazardClassification::getCreatedByUser);
                     break;
-                case "last_update_date":
-                    comparator = Comparator.comparing(HazardClassification::getCreatedByUser);
+                case "lastupdatedate":
+                    comparator = Comparator.comparing(HazardClassification::getLastUpdateDate);
                     break;
-                case "last_updated_by_user":
+                case "lastupdatedbyuser":
                     comparator = Comparator.comparing(HazardClassification::getLastUpdatedByUser);
                     break;
                 default:
@@ -127,11 +115,11 @@ public class HazardClassificationRepository {
     /**
      * Fetch Hazard Classification details by ID.
      *
-     * @param id the Hazard Classification ID.
+     * @param hzdClsCd the Hazard Classification ID.
      * @return Optional containing the Hazard Classification if found.
      */
-    public Optional<HazardClassification> getHazardClassificationDetail(int id) {
-        return jpaStreamer.stream(HazardClassification.class).filter(HazardClassification$.id.equal(id)).findFirst();
+    public Optional<HazardClassification> getHazardClassificationDetail(String hzdClsCd) {
+        return jpaStreamer.stream(HazardClassification.class).filter(HazardClassification$.hzrdClsCd.equal(hzdClsCd)).findFirst();
     }
 
     /**
@@ -155,24 +143,30 @@ public class HazardClassificationRepository {
     @Transactional
     public HazardClassification updateHazardClassification(HazardClassification hazardClassification) {
         if (!hazardClassificationExists(hazardClassification.getHzrdClsCd())) {
-            throw new IllegalArgumentException("Hazard Classification with ID " + hazardClassification.getHzrdClsCd() + " does not exist.");
+            throw new IllegalArgumentException("Hazard Classification Code: " + hazardClassification.getHzrdClsCd() + " does not exist.");
         }
         return entityManager.merge(hazardClassification);
     }
 
     /**
-     * Delete a Hazard Classification by ID.
+     * Delete a Hazard Classification by Code.
      *
-     * @param id the Hazard Classification ID to delete.
+     * @param hzrdClsCd the Hazard Classification Code to delete.
      */
     @Transactional
-    public void deleteHazardClassification(int id) {
-        HazardClassification hazardClassification = entityManager.find(HazardClassification.class, id);
-        if (hazardClassification == null) {
-            throw new IllegalArgumentException("Hazard Classification with ID " + hazardClassification.getId() + " does not exist.");
-        }
-        entityManager.remove(hazardClassification);
+    public void deleteHazardClassification(String hzrdClsCd) {
+        // Fetch the entity using hzrdClsCd
+        HazardClassification entity = jpaStreamer.stream(HazardClassification.class)
+                .filter(HazardClassification$.hzrdClsCd.equal(hzrdClsCd))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Hazard Classification not found"));
+
+        // Ensure the entity is managed before removing
+        HazardClassification managedEntity = entityManager.contains(entity) ? entity : entityManager.merge(entity);
+        entityManager.remove(managedEntity);
     }
+
+
 
     /**
      * Check if a Hazard Classification exists by hzrdClsCd using JPAStreamer.

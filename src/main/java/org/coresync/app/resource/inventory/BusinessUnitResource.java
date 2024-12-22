@@ -21,19 +21,6 @@ public class BusinessUnitResource {
     private BusinessUnitRepository businessUnitRepository;
 
     /**
-     * Fetch all Business Units.
-     *
-     * @return List of all Business Units.
-     */
-    @GET
-    @Path("/") // /api/business-unit/
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Get all Business Units", description = "Fetches all business units without pagination.")
-    public List<BusinessUnit> getBusinessUnits() {
-        return businessUnitRepository.getAllBusinessUnits();
-    }
-
-    /**
      * Fetch paginated with sort Business Units.
      * @param page
      * @param sortBy

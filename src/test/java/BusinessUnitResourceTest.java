@@ -1,14 +1,24 @@
+import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
 import org.coresync.app.model.BusinessUnit;
+import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 
+@QuarkusTest
 public class BusinessUnitResourceTest {
+
+    @Inject
+    BusinessUnitRepository businessUnitRepository;
 
     @BeforeEach
     void setUp() {
@@ -16,27 +26,20 @@ public class BusinessUnitResourceTest {
     }
 
     @Test
-    void testGetAllBusinessUnits() {
-        given()
-                .when()
-                .get("/")
-                .then()
-                .statusCode(200)
-                .body("size()", is(2))
-                .body("buId", containsInAnyOrder(345, 452));
-    }
-
-    @Test
     void testGetPaginatedBusinessUnits() {
+        // Arrange: Fetch paginated business units
+        List<BusinessUnit> businessUnits = businessUnitRepository.getPaginatedBusinessUnit(1, "buId", "asc").collect(Collectors.toList());
+
         given()
-                .queryParam("sortBy", "buid")
+                .queryParam("sortBy", "buId")
                 .queryParam("sortOrder", "asc")
                 .when()
                 .get("/page/1")
                 .then()
                 .statusCode(200)
-                .body("size()", is(2))
-                .body("buId", containsInAnyOrder(345, 452));
+                .body("size()", is(businessUnits.size()))
+                .body("[0].buId", is(businessUnits.get(0).getBuId()))
+                .body("[0].buDesc", is(businessUnits.get(0).getBuDesc()));
     }
 
     @Test

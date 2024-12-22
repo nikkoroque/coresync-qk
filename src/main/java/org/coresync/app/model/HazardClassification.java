@@ -1,5 +1,6 @@
 package org.coresync.app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import org.coresync.app.util.TimestampDeserializer;
@@ -22,6 +23,7 @@ public class HazardClassification {
     private String hzrdClsDesc;
     @Basic
     @Column(name = "creation_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
     @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp creationDate;
@@ -30,12 +32,33 @@ public class HazardClassification {
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "Last Update Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
     @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public HazardClassification() {
+    }
+
+    public HazardClassification(int id, String hzrdClsCd, String hzrdClsDesc, Timestamp creationDate, String createdByUser, Timestamp lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.hzrdClsCd = hzrdClsCd;
+        this.hzrdClsDesc = hzrdClsDesc;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
+
+    public HazardClassification(String hzrdClsCd, String hzrdClsDesc, Timestamp lastUpdateDate, String lastUpdatedByUser) {
+        this.hzrdClsCd = hzrdClsCd;
+        this.hzrdClsDesc = hzrdClsDesc;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getId() {
         return id;

@@ -22,19 +22,6 @@ public class HazardClassificationResource {
     private HazardClassificationRepository hazardClassificationRepository;
 
     /**
-     * Fetch all Hazard Classifications.
-     *
-     * @return List of all Hazard Classifications.
-     */
-    @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Get all Hazard Classifications", description = "Fetches all hazard classifications without pagination.")
-    public List<HazardClassification> getHazardClassifications() {
-        return hazardClassificationRepository.getAllHazardClassifications();
-    }
-
-    /**
      * Fetch paginated with sort Hazard Classifications.
      * @param page
      * @param sortBy
@@ -45,7 +32,10 @@ public class HazardClassificationResource {
     @Path("/page/{page}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get paginated Hazard Classifications", description = "Fetches a specific page of hazard classifications, sorted by default or specific criteria.")
-    public Response getPaginatedBusinessUnits(@PathParam("page") long page, @QueryParam("sortBy") String sortBy, @QueryParam("sortOrder") String sortOrder) {
+    public Response getPaginatedBusinessUnits(
+            @PathParam("page") long page,
+            @QueryParam("sortBy") String sortBy,
+            @QueryParam("sortOrder") String sortOrder) {
         List<HazardClassification> paginatedClasses = hazardClassificationRepository.getPaginatedHazardClassification(page, sortBy, sortOrder).collect(Collectors.toList());
         return Response.ok(paginatedClasses).build();
     }
@@ -115,16 +105,16 @@ public class HazardClassificationResource {
     /**
      * Fetch details of a specific Hazard Classification by ID.
      *
-     * @param id the Hazard Classification ID.
+     * @param hzrdClsCd the Hazard Classification ID.
      * @return Response containing the Hazard Classification details or 404 status.
      */
     @GET
-    @Path("/{id}")
+    @Path("/{hzrdClsCd}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get Hazard Classification Details", description = "Fetches detailed information for a specific hazard classification based on its ID.")
-    public Response getHazardClassificationDetail(@PathParam("id") int id) {
-        Optional<HazardClassification> hazardClassification = hazardClassificationRepository.getHazardClassificationDetail(id);
-        return hazardClassification.map(hzrd -> Response.ok(hzrd).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Hazard Class with ID " + id + " not found.").build());
+    public Response getHazardClassificationDetail(@PathParam("hzrdClsCd") String hzrdClsCd) {
+        Optional<HazardClassification> hazardClassification = hazardClassificationRepository.getHazardClassificationDetail(hzrdClsCd);
+        return hazardClassification.map(hzrd -> Response.ok(hzrd).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Hazard Classification Code: " + hzrdClsCd + " not found.").build());
     }
 
     /**
@@ -150,30 +140,29 @@ public class HazardClassificationResource {
     /**
      * Update an existing Hazard Classification.
      *
-     * @param id the ID of the Hazard Classification to update.
+     * @param hzrdClsCd the ID of the Hazard Classification to update.
      * @param hazardClassification the Hazard Classification data to update.
      * @return Response containing the updated Hazard Classification or an error status.
      */
     @PUT
-    @Path("/{id}")
+    @Path("/{hzrdClsCd}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateHazardClassification(@PathParam("id") int id, HazardClassification hazardClassification) {
-        if (hazardClassification.getId() != id) {
+    @Operation(summary = "Updates a Hazard Classification", description = "Updates a hazard classification with the provided details")
+    public Response updateHazardClassification(@PathParam("hzrdClsCd") String hzrdClsCd, HazardClassification hazardClassification) {
+        if (!hazardClassification.getHzrdClsCd().equals(hzrdClsCd)) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Path ID and Hazard Classification ID must match.")
+                    .entity("Path ID and Hazard Classification Code must match.")
                     .build();
         }
 
         try {
-            // Ensure date is parsed correctly
-            if (hazardClassification.getCreationDate() != null) {
-                hazardClassification.setCreationDate(Timestamp.valueOf(hazardClassification.getCreationDate().toString()));
-            }
+            // Fetch existing entity to ensure it exists
+            HazardClassification existing = hazardClassificationRepository.getHazardClassificationDetail(hzrdClsCd)
+                    .orElseThrow(() -> new IllegalArgumentException("Hazard Classification with Code " + hzrdClsCd + " not found."));
 
-            // Fetch and merge non-updatable fields
-            HazardClassification existing = hazardClassificationRepository.getHazardClassificationDetail(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Hazard Classification with ID " + id + " not found."));
+            // Copy non-updatable fields from the existing entity
+            hazardClassification.setId(existing.getId()); // Ensure the primary key is set
             hazardClassification.setCreationDate(existing.getCreationDate());
             hazardClassification.setCreatedByUser(existing.getCreatedByUser());
 
@@ -190,20 +179,18 @@ public class HazardClassificationResource {
         }
     }
 
-
-
     /**
      * Delete a Hazard Classification by ID.
      *
-     * @param id the ID of the Hazard Classification to delete.
+     * @param hzrdClsCd the ID of the Hazard Classification to delete.
      * @return Response indicating success or failure.
      */
     @DELETE
-    @Path("/{id}")
+    @Path("/{hzrdClsCd}")
     @Operation(summary = "Deletes a hazard classification", description = "Deletes the hazard classification provided in the parameter submitted.")
-    public Response deleteHazardClassification(@PathParam("id") int id) {
+    public Response deleteHazardClassification(@PathParam("hzrdClsCd") String hzrdClsCd) {
         try {
-            hazardClassificationRepository.deleteHazardClassification(id);
+            hazardClassificationRepository.deleteHazardClassification(hzrdClsCd);
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
@@ -212,24 +199,24 @@ public class HazardClassificationResource {
         }
     }
 
-    /**
-     * Check if a Hazard Classification exists by ID.
-     *
-     * @param hzrdClsCd the Hazard Classification ID to check.
-     * @return Response indicating if the Hazard Classification exists.
-     */
     @GET
     @Path("/validate/{hzrdClsCd}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Check Hazard Classification Class Code is valid")
     public Response validateHazardClassificationId(@PathParam("hzrdClsCd") String hzrdClsCd) {
-        boolean isValid = hazardClassificationRepository.hazardClassificationExists(hzrdClsCd);
+        boolean exists = hazardClassificationRepository.hazardClassificationExists(hzrdClsCd);
 
-        if (isValid) {
-            return Response.status(Response.Status.FOUND).entity("{\"message\":\"Hazard Classification exists\", \"Class Code\":" + hzrdClsCd + "}").build();
+        if (exists) {
+            return Response.status(Response.Status.OK)
+                    .entity("{\"message\":\"Hazard Classification exists\", \"Class Code\":\"" + hzrdClsCd + "\"}")
+                    .build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("{\"message\":\"Hazard Classification not found\", \"Class Code\":" + hzrdClsCd + "}").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"message\":\"Hazard Classification not found\", \"Class Code\":\"" + hzrdClsCd + "\"}")
+                    .build();
         }
     }
+
+
 
 }
