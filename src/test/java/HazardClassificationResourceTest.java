@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import jakarta.inject.Inject;
@@ -6,6 +7,8 @@ import org.coresync.app.repository.inventory.HazardClassificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +19,9 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class HazardClassificationResourceTest {
 
+    @JsonIgnore
+    private org.apache.groovy.parser.antlr4.Antlr4PluginFactory pluginFactory;
+
     @Inject
     HazardClassificationRepository hazardClassificationRepository;
 
@@ -23,6 +29,9 @@ public class HazardClassificationResourceTest {
     void setUp() {
         RestAssured.baseURI = "http://localhost:8080/api/hazard-classification";
     }
+
+//     Current timestamp
+    Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
 
     @Test
     void testGetPaginatedHazardClassifications() {
@@ -68,9 +77,7 @@ public class HazardClassificationResourceTest {
     }
 
 //    @Test
-//    void testHazardClassificationLifecycle() {
-//        // Current timestamp
-//        Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
+//    void testAddHazardClassification() {
 //
 //        // Create HazardClassification instance
 //        HazardClassification newHazardClassification = new HazardClassification(
@@ -95,36 +102,18 @@ public class HazardClassificationResourceTest {
 //                .body("hzrdClsDesc", is(newHazardClassification.getHzrdClsDesc()))
 //                .body("createdByUser", is(newHazardClassification.getCreatedByUser()))
 //                .body("lastUpdatedByUser", is(newHazardClassification.getLastUpdatedByUser()));
-//
 //        // Step 2 : Update Business Unit
-//        HazardClassification uodateHazardClassification = new HazardClassification(0, "99", "Bleach Update", currentTimestamp,
+//        HazardClassification updateHazardClassification = new HazardClassification(0, "99", "Bleach Update", currentTimestamp,
 //                "QKDEVATEST", currentTimestamp, "QKDEV");
 //
 //        given()
 //                .contentType(ContentType.JSON)
-//                .body(uodateHazardClassification)
+//                .body(updateHazardClassification)
 //                .when()
 //                .put("/99")
 //                .then()
 //                .statusCode(200)
 //                .body("hzrdClsDesc", is("Bleach Update"));
-//    }
-
-//    @Test
-//    public void testDeleteHazardClassification() {
-//        // Setup test data
-//        HazardClassification hc = new HazardClassification();
-//        hc.setHzrdClsCd("99");
-//        entityManager.persist(hc);
-//
-//        // Execute DELETE request
-//        given()
-//                .when()
-//                .delete("/99")
-//                .then()
-//                .statusCode(200)
-//                .body("message", is("Hazard Classification deleted"))
-//                .body("Class Code", is("99"));
 //    }
 
 }
