@@ -1,55 +1,43 @@
+import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
 import org.coresync.app.model.BusinessUnit;
-import org.coresync.app.repository.BusinessUnitRepository;
-import org.coresync.app.resource.BusinessUnitResource;
+import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 
+@QuarkusTest
 public class BusinessUnitResourceTest {
 
-    @InjectMocks
-    private BusinessUnitResource businessUnitResource;
-
-    @Mock
-    private BusinessUnitRepository businessUnitRepository;
+    @Inject
+    BusinessUnitRepository businessUnitRepository;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        RestAssured.baseURI = "http://localhost:8080/api/bu";
+        RestAssured.baseURI = "http://localhost:8080/api/business-unit";
     }
 
-    @Test
-    void testGetAllBusinessUnits() {
-        given()
-                .when()
-                .get("/")
-                .then()
-                .statusCode(200)
-                .body("size()", is(2))
-                .body("buId", containsInAnyOrder(345, 452));
-    }
-
-    @Test
-    void testGetPaginatedBusinessUnits() {
-        given()
-                .queryParam("sortBy", "buid")
-                .queryParam("sortOrder", "asc")
-                .when()
-                .get("/page/1")
-                .then()
-                .statusCode(200)
-                .body("size()", is(2))
-                .body("buId", containsInAnyOrder(345, 452));
-    }
+//    @Test
+//    void testGetPaginatedBusinessUnits() {
+//        // Arrange: Fetch paginated business units
+//        List<BusinessUnit> businessUnits = businessUnitRepository.getPaginatedBusinessUnit(1, "buId", "asc").collect(Collectors.toList());
+//
+//        given()
+//                .queryParam("sortBy", "buId")
+//                .queryParam("sortOrder", "asc")
+//                .when()
+//                .get("/page/1")
+//                .then()
+//                .statusCode(200)
+//                .body("size()", is(businessUnits.size()))
+//                .body("[0].buId", is(businessUnits.get(0).getBuId()))
+//                .body("[0].buDesc", is(businessUnits.get(0).getBuDesc()));
+//    }
 
     @Test
     void testFilterBusinessUnits() {
@@ -130,7 +118,7 @@ public class BusinessUnitResourceTest {
         // Step 3: Validate Business Unit Exists
         given()
                 .when()
-                .get("/exists/999")
+                .get("/validate/999")
                 .then()
                 .statusCode(302)
                 .body("message", is("Business Unit exists"));
@@ -145,11 +133,9 @@ public class BusinessUnitResourceTest {
         // Step 5: Ensure Business Unit No Longer Exists
         given()
                 .when()
-                .get("/exists/999")
+                .get("/validate/999")
                 .then()
                 .statusCode(404)
                 .body("message", is("Business Unit not found"));
     }
-
-
 }

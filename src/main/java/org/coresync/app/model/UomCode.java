@@ -1,13 +1,16 @@
 package org.coresync.app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import org.coresync.app.util.TimestampDeserializer;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "uom_cd", schema = "inventory_mgt", catalog = "coresync")
 public class UomCode {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "uom_cd")
     private String uomCd;
@@ -16,12 +19,18 @@ public class UomCode {
     private String uomCdDesc;
     @Basic
     @Column(name = "creation_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
+    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
+    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")

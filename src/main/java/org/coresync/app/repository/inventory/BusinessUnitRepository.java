@@ -1,4 +1,4 @@
-package org.coresync.app.repository;
+package org.coresync.app.repository.inventory;
 
 import com.speedment.jpastreamer.application.JPAStreamer;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -23,15 +23,24 @@ public class BusinessUnitRepository {
     @Inject
     private EntityManager entityManager;
 
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 100;
 
-    /**
-     * Fetch all Business Units.
-     *
-     * @return List of all Business Units.
-     */
-    public List<BusinessUnit> getAllBusinessUnits() {
-        return jpaStreamer.stream(BusinessUnit.class).collect(Collectors.toList());
+    public class PaginatedResult<T> {
+        private List<T> data;
+        private long totalItems;
+
+        public PaginatedResult(List<T> data, long totalItems) {
+            this.data = data;
+            this.totalItems = totalItems;
+        }
+
+        public List<T> getData() {
+            return data;
+        }
+
+        public long getTotalItems() {
+            return totalItems;
+        }
     }
 
     /**
@@ -42,7 +51,7 @@ public class BusinessUnitRepository {
      * @param sortOrder the sort order: ASC or DESC (nullable, defaults to ASC).
      * @return Stream of paginated and sorted Business Units.
      */
-    public Stream<BusinessUnit> getPaginatedBusinessUnit(long page, String sortBy, String sortOrder) {
+    public PaginatedResult<BusinessUnit> getPaginatedBusinessUnit(long page, String sortBy, String sortOrder) {
         validatePageNumber(page);
         long offset = (page - 1) * PAGE_SIZE;
 
@@ -60,7 +69,6 @@ public class BusinessUnitRepository {
                 case "buzip":
                     comparator = Comparator.comparing(BusinessUnit::getBuZip);
                     break;
-                // Add other sortable fields as needed
                 default:
                     throw new IllegalArgumentException("Invalid sortBy field: " + sortBy);
             }
@@ -71,10 +79,17 @@ public class BusinessUnitRepository {
             comparator = comparator.reversed();
         }
 
-        return jpaStreamer.stream(BusinessUnit.class)
-                .sorted(comparator)       // Apply sorting
-                .skip(offset)             // Skip records for pagination
-                .limit(PAGE_SIZE);        // Limit to the page size
+        // Fetch paginated data
+        List<BusinessUnit> paginatedData = jpaStreamer.stream(BusinessUnit.class)
+                .sorted(comparator)
+                .skip(offset)
+                .limit(PAGE_SIZE)
+                .collect(Collectors.toList());
+
+        // Fetch total count
+        long totalItems = jpaStreamer.stream(BusinessUnit.class).count();
+
+        return new PaginatedResult<>(paginatedData, totalItems);
     }
 
     /**
@@ -141,7 +156,7 @@ public class BusinessUnitRepository {
     @Transactional
     public BusinessUnit updateBusinessUnit(BusinessUnit businessUnit) {
         if (!businessUnitExists(businessUnit.getBuId())) {
-            throw new IllegalArgumentException("BusinessUnit with ID " + businessUnit.getBuId() + " does not exist.");
+            throw new IllegalArgumentException("Business Unit with ID " + businessUnit.getBuId() + " does not exist.");
         }
         return entityManager.merge(businessUnit);
     }
@@ -155,7 +170,7 @@ public class BusinessUnitRepository {
     public void deleteBusinessUnit(int buId) {
         BusinessUnit businessUnit = entityManager.find(BusinessUnit.class, buId);
         if (businessUnit == null) {
-            throw new IllegalArgumentException("BusinessUnit with ID " + buId + " does not exist.");
+            throw new IllegalArgumentException("Business Unit with ID " + buId + " does not exist.");
         }
         entityManager.remove(businessUnit);
     }
@@ -167,7 +182,7 @@ public class BusinessUnitRepository {
      * @return true if the Business Unit exists, false otherwise.
      */
     public boolean businessUnitExists(int buId) {
-        return entityManager.find(BusinessUnit.class, buId) != null;
+        return jpaStreamer.stream(BusinessUnit.class).anyMatch(BusinessUnit$.buId.equal(buId));
     }
 
     /**
