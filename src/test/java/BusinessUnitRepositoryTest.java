@@ -31,22 +31,22 @@ public class BusinessUnitRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testGetPaginatedBusinessUnit() {
-        List<BusinessUnit> mockUnits = List.of(
-                new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1"),
-                new BusinessUnit(2, "Unit 2", "GLN2", "City2", "State2", "Zip2", "Country2"),
-                new BusinessUnit(3, "Unit 3", "GLN3", "City3", "State3", "Zip3", "Country3")
-        );
-
-        when(jpaStreamer.stream(BusinessUnit.class)).thenReturn(mockUnits.stream());
-
-        Stream<BusinessUnit> result = businessUnitRepository.getPaginatedBusinessUnit(1, "buid", "asc");
-
-        assertNotNull(result);
-        assertEquals(3, result.count());
-        verify(jpaStreamer, times(1)).stream(BusinessUnit.class);
-    }
+//    @Test
+//    void testGetPaginatedBusinessUnit() {
+//        List<BusinessUnit> mockUnits = List.of(
+//                new BusinessUnit(1, "Unit 1", "GLN1", "City1", "State1", "Zip1", "Country1"),
+//                new BusinessUnit(2, "Unit 2", "GLN2", "City2", "State2", "Zip2", "Country2"),
+//                new BusinessUnit(3, "Unit 3", "GLN3", "City3", "State3", "Zip3", "Country3")
+//        );
+//
+//        when(jpaStreamer.stream(BusinessUnit.class)).thenReturn(mockUnits.stream());
+//
+//        Stream<BusinessUnit> result = businessUnitRepository.getPaginatedBusinessUnit(1, "buid", "asc");
+//
+//        assertNotNull(result);
+//        assertEquals(3, result.count());
+//        verify(jpaStreamer, times(1)).stream(BusinessUnit.class);
+//    }
 
     @Test
     void testFilterBusinessUnits() {

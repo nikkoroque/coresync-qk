@@ -9,7 +9,9 @@ import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,12 +40,16 @@ public class BusinessUnitResource {
             @PathParam("page") long page,
             @QueryParam("sortBy") String sortBy,
             @QueryParam("sortOrder") String sortOrder) {
-        List<BusinessUnit> paginatedUnits = businessUnitRepository
-                .getPaginatedBusinessUnit(page, sortBy, sortOrder)
-                .collect(Collectors.toList());
-        return Response.ok(paginatedUnits).build();
-    }
+        BusinessUnitRepository.PaginatedResult<BusinessUnit> result = businessUnitRepository
+                .getPaginatedBusinessUnit(page, sortBy, sortOrder);
 
+        // Create response
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", result.getData());
+        response.put("totalItems", result.getTotalItems());
+
+        return Response.ok(response).build();
+    }
 
     /**
      * Filter Business Units based on multiple criteria.
@@ -77,7 +83,6 @@ public class BusinessUnitResource {
                 .collect(Collectors.toList());
         return Response.ok(filteredUnits).build();
     }
-
 
     /**
      * Fetch details of a specific Business Unit by ID.

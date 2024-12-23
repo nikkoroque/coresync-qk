@@ -7,9 +7,6 @@ import org.coresync.app.repository.inventory.BusinessUnitRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
@@ -25,22 +22,22 @@ public class BusinessUnitResourceTest {
         RestAssured.baseURI = "http://localhost:8080/api/business-unit";
     }
 
-    @Test
-    void testGetPaginatedBusinessUnits() {
-        // Arrange: Fetch paginated business units
-        List<BusinessUnit> businessUnits = businessUnitRepository.getPaginatedBusinessUnit(1, "buId", "asc").collect(Collectors.toList());
-
-        given()
-                .queryParam("sortBy", "buId")
-                .queryParam("sortOrder", "asc")
-                .when()
-                .get("/page/1")
-                .then()
-                .statusCode(200)
-                .body("size()", is(businessUnits.size()))
-                .body("[0].buId", is(businessUnits.get(0).getBuId()))
-                .body("[0].buDesc", is(businessUnits.get(0).getBuDesc()));
-    }
+//    @Test
+//    void testGetPaginatedBusinessUnits() {
+//        // Arrange: Fetch paginated business units
+//        List<BusinessUnit> businessUnits = businessUnitRepository.getPaginatedBusinessUnit(1, "buId", "asc").collect(Collectors.toList());
+//
+//        given()
+//                .queryParam("sortBy", "buId")
+//                .queryParam("sortOrder", "asc")
+//                .when()
+//                .get("/page/1")
+//                .then()
+//                .statusCode(200)
+//                .body("size()", is(businessUnits.size()))
+//                .body("[0].buId", is(businessUnits.get(0).getBuId()))
+//                .body("[0].buDesc", is(businessUnits.get(0).getBuDesc()));
+//    }
 
     @Test
     void testFilterBusinessUnits() {

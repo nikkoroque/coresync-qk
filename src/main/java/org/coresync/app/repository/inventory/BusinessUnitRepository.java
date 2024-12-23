@@ -9,7 +9,9 @@ import org.coresync.app.model.BusinessUnit;
 import org.coresync.app.model.BusinessUnit$;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ApplicationScoped
@@ -21,7 +23,25 @@ public class BusinessUnitRepository {
     @Inject
     private EntityManager entityManager;
 
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 100;
+
+    public class PaginatedResult<T> {
+        private List<T> data;
+        private long totalItems;
+
+        public PaginatedResult(List<T> data, long totalItems) {
+            this.data = data;
+            this.totalItems = totalItems;
+        }
+
+        public List<T> getData() {
+            return data;
+        }
+
+        public long getTotalItems() {
+            return totalItems;
+        }
+    }
 
     /**
      * Fetch paginated Business Units with sorting.
@@ -31,7 +51,7 @@ public class BusinessUnitRepository {
      * @param sortOrder the sort order: ASC or DESC (nullable, defaults to ASC).
      * @return Stream of paginated and sorted Business Units.
      */
-    public Stream<BusinessUnit> getPaginatedBusinessUnit(long page, String sortBy, String sortOrder) {
+    public PaginatedResult<BusinessUnit> getPaginatedBusinessUnit(long page, String sortBy, String sortOrder) {
         validatePageNumber(page);
         long offset = (page - 1) * PAGE_SIZE;
 
@@ -49,7 +69,6 @@ public class BusinessUnitRepository {
                 case "buzip":
                     comparator = Comparator.comparing(BusinessUnit::getBuZip);
                     break;
-                // Add other sortable fields as needed
                 default:
                     throw new IllegalArgumentException("Invalid sortBy field: " + sortBy);
             }
@@ -60,10 +79,17 @@ public class BusinessUnitRepository {
             comparator = comparator.reversed();
         }
 
-        return jpaStreamer.stream(BusinessUnit.class)
-                .sorted(comparator)       // Apply sorting
-                .skip(offset)             // Skip records for pagination
-                .limit(PAGE_SIZE);        // Limit to the page size
+        // Fetch paginated data
+        List<BusinessUnit> paginatedData = jpaStreamer.stream(BusinessUnit.class)
+                .sorted(comparator)
+                .skip(offset)
+                .limit(PAGE_SIZE)
+                .collect(Collectors.toList());
+
+        // Fetch total count
+        long totalItems = jpaStreamer.stream(BusinessUnit.class).count();
+
+        return new PaginatedResult<>(paginatedData, totalItems);
     }
 
     /**
