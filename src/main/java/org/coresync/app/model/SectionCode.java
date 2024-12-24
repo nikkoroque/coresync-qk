@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "sect_cd", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "section_code", schema = "inventory_mgt", catalog = "coresync")
 public class SectionCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "section_cd")
-    private String sectionCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "section_cd_desc")
-    private String sectionCdDesc;
+    @Column(name = "code")
+    private String code;
+    @Basic
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -27,20 +30,28 @@ public class SectionCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public String getSectionCd() {
-        return sectionCd;
+    public int getId() {
+        return id;
     }
 
-    public void setSectionCd(String sectionCd) {
-        this.sectionCd = sectionCd;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSectionCdDesc() {
-        return sectionCdDesc;
+    public String getCode() {
+        return code;
     }
 
-    public void setSectionCdDesc(String sectionCdDesc) {
-        this.sectionCdDesc = sectionCdDesc;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -82,9 +93,9 @@ public class SectionCode {
 
         SectionCode that = (SectionCode) o;
 
-        if (sectionCd != null ? !sectionCd.equals(that.sectionCd) : that.sectionCd != null) return false;
-        if (sectionCdDesc != null ? !sectionCdDesc.equals(that.sectionCdDesc) : that.sectionCdDesc != null)
-            return false;
+        if (id != that.id) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -98,8 +109,9 @@ public class SectionCode {
 
     @Override
     public int hashCode() {
-        int result = sectionCd != null ? sectionCd.hashCode() : 0;
-        result = 31 * result + (sectionCdDesc != null ? sectionCdDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

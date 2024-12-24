@@ -1,27 +1,28 @@
 package org.coresync.app.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-import org.coresync.app.util.TimestampDeserializer;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "uom_cd", schema = "inventory_mgt", catalog = "coresync")
-public class UomCode {
+@Table(name = "unit_of_measure", schema = "inventory_mgt", catalog = "coresync")
+public class UnitOfMeasure {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "uom_cd")
-    private String uomCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "uom_cd_desc")
-    private String uomCdDesc;
+    @Column(name = "code")
+    private String code;
+    @Basic
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp creationDate;
     @Basic
     @Column(name = "created_by_user")
@@ -30,26 +31,46 @@ public class UomCode {
     @Column(name = "last_update_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public String getUomCd() {
-        return uomCd;
+    public UnitOfMeasure(){
+
+    }
+    public UnitOfMeasure(Integer id, String code, String description, Timestamp creationDate, String createdByUser, Timestamp lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
     }
 
-    public void setUomCd(String uomCd) {
-        this.uomCd = uomCd;
+    public int getId() {
+        return id;
     }
 
-    public String getUomCdDesc() {
-        return uomCdDesc;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUomCdDesc(String uomCdDesc) {
-        this.uomCdDesc = uomCdDesc;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -89,17 +110,17 @@ public class UomCode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UomCode uomCode = (UomCode) o;
+        UnitOfMeasure that = (UnitOfMeasure) o;
 
-        if (uomCd != null ? !uomCd.equals(uomCode.uomCd) : uomCode.uomCd != null) return false;
-        if (uomCdDesc != null ? !uomCdDesc.equals(uomCode.uomCdDesc) : uomCode.uomCdDesc != null) return false;
-        if (creationDate != null ? !creationDate.equals(uomCode.creationDate) : uomCode.creationDate != null)
+        if (id != that.id) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
+        if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
-        if (createdByUser != null ? !createdByUser.equals(uomCode.createdByUser) : uomCode.createdByUser != null)
+        if (lastUpdateDate != null ? !lastUpdateDate.equals(that.lastUpdateDate) : that.lastUpdateDate != null)
             return false;
-        if (lastUpdateDate != null ? !lastUpdateDate.equals(uomCode.lastUpdateDate) : uomCode.lastUpdateDate != null)
-            return false;
-        if (lastUpdatedByUser != null ? !lastUpdatedByUser.equals(uomCode.lastUpdatedByUser) : uomCode.lastUpdatedByUser != null)
+        if (lastUpdatedByUser != null ? !lastUpdatedByUser.equals(that.lastUpdatedByUser) : that.lastUpdatedByUser != null)
             return false;
 
         return true;
@@ -107,8 +128,9 @@ public class UomCode {
 
     @Override
     public int hashCode() {
-        int result = uomCd != null ? uomCd.hashCode() : 0;
-        result = 31 * result + (uomCdDesc != null ? uomCdDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

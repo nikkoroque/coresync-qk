@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "shelf_life_typ_cd", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "shelf_life_type_code", schema = "inventory_mgt", catalog = "coresync")
 public class ShelfLifeTypeCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "shelf_life_typ_cd")
-    private String shelfLifeTypCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "shelf_life_typ_cd_desc")
-    private String shelfLifeTypCdDesc;
+    @Column(name = "code")
+    private String code;
+    @Basic
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -27,20 +30,28 @@ public class ShelfLifeTypeCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public String getShelfLifeTypCd() {
-        return shelfLifeTypCd;
+    public int getId() {
+        return id;
     }
 
-    public void setShelfLifeTypCd(String shelfLifeTypCd) {
-        this.shelfLifeTypCd = shelfLifeTypCd;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getShelfLifeTypCdDesc() {
-        return shelfLifeTypCdDesc;
+    public String getCode() {
+        return code;
     }
 
-    public void setShelfLifeTypCdDesc(String shelfLifeTypCdDesc) {
-        this.shelfLifeTypCdDesc = shelfLifeTypCdDesc;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -82,10 +93,9 @@ public class ShelfLifeTypeCode {
 
         ShelfLifeTypeCode that = (ShelfLifeTypeCode) o;
 
-        if (shelfLifeTypCd != null ? !shelfLifeTypCd.equals(that.shelfLifeTypCd) : that.shelfLifeTypCd != null)
-            return false;
-        if (shelfLifeTypCdDesc != null ? !shelfLifeTypCdDesc.equals(that.shelfLifeTypCdDesc) : that.shelfLifeTypCdDesc != null)
-            return false;
+        if (id != that.id) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -99,8 +109,9 @@ public class ShelfLifeTypeCode {
 
     @Override
     public int hashCode() {
-        int result = shelfLifeTypCd != null ? shelfLifeTypCd.hashCode() : 0;
-        result = 31 * result + (shelfLifeTypCdDesc != null ? shelfLifeTypCdDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

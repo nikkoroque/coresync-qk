@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "stat_cd", schema = "inventory_mgt", catalog = "coresync")
-public class ItemStatusCode {
+@Table(name = "tax_jurisdiction_type_code", schema = "inventory_mgt", catalog = "coresync")
+public class TaxJurisdictionTypeCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "stat_cd")
-    private int statCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "stat_cd_desc")
-    private String statCdDesc;
+    @Column(name = "jurisdiction_type_code")
+    private String jurisdictionTypeCode;
+    @Basic
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -27,20 +30,28 @@ public class ItemStatusCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public int getStatCd() {
-        return statCd;
+    public int getId() {
+        return id;
     }
 
-    public void setStatCd(int statCd) {
-        this.statCd = statCd;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getStatCdDesc() {
-        return statCdDesc;
+    public String getJurisdictionTypeCode() {
+        return jurisdictionTypeCode;
     }
 
-    public void setStatCdDesc(String statCdDesc) {
-        this.statCdDesc = statCdDesc;
+    public void setJurisdictionTypeCode(String jurisdictionTypeCode) {
+        this.jurisdictionTypeCode = jurisdictionTypeCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -80,10 +91,12 @@ public class ItemStatusCode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ItemStatusCode that = (ItemStatusCode) o;
+        TaxJurisdictionTypeCode that = (TaxJurisdictionTypeCode) o;
 
-        if (statCd != that.statCd) return false;
-        if (statCdDesc != null ? !statCdDesc.equals(that.statCdDesc) : that.statCdDesc != null) return false;
+        if (id != that.id) return false;
+        if (jurisdictionTypeCode != null ? !jurisdictionTypeCode.equals(that.jurisdictionTypeCode) : that.jurisdictionTypeCode != null)
+            return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -97,8 +110,9 @@ public class ItemStatusCode {
 
     @Override
     public int hashCode() {
-        int result = statCd;
-        result = 31 * result + (statCdDesc != null ? statCdDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (jurisdictionTypeCode != null ? jurisdictionTypeCode.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

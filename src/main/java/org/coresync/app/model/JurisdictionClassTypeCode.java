@@ -1,64 +1,34 @@
 package org.coresync.app.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-import org.coresync.app.util.TimestampDeserializer;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "hzrd_cls", schema = "inventory_mgt", catalog = "coresync")
-public class HazardClassification {
+@Table(name = "jurisdiction_class_type_code", schema = "inventory_mgt", catalog = "coresync")
+public class JurisdictionClassTypeCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "hzrd_cls_cd")
-    private String hzrdClsCd;
+    @Column(name = "class_type_code")
+    private String classTypeCode;
     @Basic
-    @Column(name = "hzrd_cls_desc")
-    private String hzrdClsDesc;
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(description = "Last Update Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
-
-    public HazardClassification() {
-    }
-
-    public HazardClassification(int id, String hzrdClsCd, String hzrdClsDesc, Timestamp creationDate, String createdByUser, Timestamp lastUpdateDate, String lastUpdatedByUser) {
-        this.id = id;
-        this.hzrdClsCd = hzrdClsCd;
-        this.hzrdClsDesc = hzrdClsDesc;
-        this.creationDate = creationDate;
-        this.createdByUser = createdByUser;
-        this.lastUpdateDate = lastUpdateDate;
-        this.lastUpdatedByUser = lastUpdatedByUser;
-    }
-
-    public HazardClassification(String hzrdClsCd, String hzrdClsDesc, Timestamp lastUpdateDate, String lastUpdatedByUser) {
-        this.hzrdClsCd = hzrdClsCd;
-        this.hzrdClsDesc = hzrdClsDesc;
-        this.lastUpdateDate = lastUpdateDate;
-        this.lastUpdatedByUser = lastUpdatedByUser;
-    }
 
     public int getId() {
         return id;
@@ -68,20 +38,20 @@ public class HazardClassification {
         this.id = id;
     }
 
-    public String getHzrdClsCd() {
-        return hzrdClsCd;
+    public String getClassTypeCode() {
+        return classTypeCode;
     }
 
-    public void setHzrdClsCd(String hzrdClsCd) {
-        this.hzrdClsCd = hzrdClsCd;
+    public void setClassTypeCode(String classTypeCode) {
+        this.classTypeCode = classTypeCode;
     }
 
-    public String getHzrdClsDesc() {
-        return hzrdClsDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHzrdClsDesc(String hzrdClsDesc) {
-        this.hzrdClsDesc = hzrdClsDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -121,11 +91,12 @@ public class HazardClassification {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        HazardClassification that = (HazardClassification) o;
+        JurisdictionClassTypeCode that = (JurisdictionClassTypeCode) o;
 
         if (id != that.id) return false;
-        if (hzrdClsCd != null ? !hzrdClsCd.equals(that.hzrdClsCd) : that.hzrdClsCd != null) return false;
-        if (hzrdClsDesc != null ? !hzrdClsDesc.equals(that.hzrdClsDesc) : that.hzrdClsDesc != null) return false;
+        if (classTypeCode != null ? !classTypeCode.equals(that.classTypeCode) : that.classTypeCode != null)
+            return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -140,8 +111,8 @@ public class HazardClassification {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (hzrdClsCd != null ? hzrdClsCd.hashCode() : 0);
-        result = 31 * result + (hzrdClsDesc != null ? hzrdClsDesc.hashCode() : 0);
+        result = 31 * result + (classTypeCode != null ? classTypeCode.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
