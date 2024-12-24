@@ -11,7 +11,8 @@ import org.coresync.app.repository.inventory.UomRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -225,12 +226,31 @@ public class UomResource {
     public Response filterUomCodes(
             @QueryParam("code") String code,
             @QueryParam("description") String description,
-            @QueryParam("creationDate")Timestamp creationDate,
+            @QueryParam("creationDate") String creationDate,
             @QueryParam("createdByUser") String createdByUser,
-            @QueryParam("lastUpdateDate") Timestamp lastUpdateDate,
+            @QueryParam("lastUpdateDate") String lastUpdateDate,
             @QueryParam("lastUpdatedByUser") String lastUpdatedByUser
-            ) {
-        List<UnitOfMeasure> filteredCodes = uomRepository.filterUomCodes(code, description, creationDate, createdByUser, lastUpdateDate, lastUpdatedByUser).collect(Collectors.toList());
+    ) {
+        // Parse OffsetDateTime from the query parameters
+        OffsetDateTime parsedCreationDate = null;
+        OffsetDateTime parsedLastUpdateDate = null;
+
+        try {
+            if (creationDate != null) {
+                parsedCreationDate = OffsetDateTime.parse(creationDate);
+            }
+            if (lastUpdateDate != null) {
+                parsedLastUpdateDate = OffsetDateTime.parse(lastUpdateDate);
+            }
+        } catch (DateTimeParseException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid date format for creationDate or lastUpdateDate. Expected ISO-8601 format.")
+                    .build();
+        }
+
+        List<UnitOfMeasure> filteredCodes = uomRepository
+                .filterUomCodes(code, description, parsedCreationDate, createdByUser, parsedLastUpdateDate, lastUpdatedByUser)
+                .collect(Collectors.toList());
 
         return Response.ok(filteredCodes).build();
     }

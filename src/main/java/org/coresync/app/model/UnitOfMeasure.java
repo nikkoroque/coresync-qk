@@ -1,10 +1,8 @@
 package org.coresync.app.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "unit_of_measure", schema = "inventory_mgt", catalog = "coresync")
@@ -21,17 +19,17 @@ public class UnitOfMeasure {
     private String description;
     @Basic
     @Column(name = "creation_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    private Timestamp creationDate;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
-    private Timestamp lastUpdateDate;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
@@ -39,7 +37,7 @@ public class UnitOfMeasure {
     public UnitOfMeasure(){
 
     }
-    public UnitOfMeasure(Integer id, String code, String description, Timestamp creationDate, String createdByUser, Timestamp lastUpdateDate, String lastUpdatedByUser) {
+    public UnitOfMeasure(Integer id, String code, String description, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -73,11 +71,11 @@ public class UnitOfMeasure {
         this.description = description;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -89,11 +87,11 @@ public class UnitOfMeasure {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
