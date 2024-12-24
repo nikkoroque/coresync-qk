@@ -5,27 +5,27 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "hzrd_cd", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "hazard_code", schema = "inventory_mgt", catalog = "coresync")
 public class HazardCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "hzrd_cd")
-    private int hzrdCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "hzrd_cls_cd")
-    private String hzrdClsCd;
+    @Column(name = "hazard_class_id")
+    private int hazardClassId;
     @Basic
-    @Column(name = "hzrd_desc1")
-    private String hzrdDesc1;
+    @Column(name = "description_1")
+    private String description1;
     @Basic
-    @Column(name = "hzrd_desc2")
-    private String hzrdDesc2;
+    @Column(name = "description_2")
+    private String description2;
     @Basic
-    @Column(name = "hzrd_mtrl_pkg_cd")
-    private String hzrdMtrlPkgCd;
+    @Column(name = "material_package_code")
+    private String materialPackageCode;
     @Basic
-    @Column(name = "hzrd_govt_mtrl_cd")
-    private String hzrdGovtMtrlCd;
+    @Column(name = "govt_material_code")
+    private String govtMaterialCode;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -39,52 +39,52 @@ public class HazardCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public int getHzrdCd() {
-        return hzrdCd;
+    public int getId() {
+        return id;
     }
 
-    public void setHzrdCd(int hzrdCd) {
-        this.hzrdCd = hzrdCd;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getHzrdClsCd() {
-        return hzrdClsCd;
+    public int getHazardClassId() {
+        return hazardClassId;
     }
 
-    public void setHzrdClsCd(String hzrdClsCd) {
-        this.hzrdClsCd = hzrdClsCd;
+    public void setHazardClassId(int hazardClassId) {
+        this.hazardClassId = hazardClassId;
     }
 
-    public String getHzrdDesc1() {
-        return hzrdDesc1;
+    public String getDescription1() {
+        return description1;
     }
 
-    public void setHzrdDesc1(String hzrdDesc1) {
-        this.hzrdDesc1 = hzrdDesc1;
+    public void setDescription1(String description1) {
+        this.description1 = description1;
     }
 
-    public String getHzrdDesc2() {
-        return hzrdDesc2;
+    public String getDescription2() {
+        return description2;
     }
 
-    public void setHzrdDesc2(String hzrdDesc2) {
-        this.hzrdDesc2 = hzrdDesc2;
+    public void setDescription2(String description2) {
+        this.description2 = description2;
     }
 
-    public String getHzrdMtrlPkgCd() {
-        return hzrdMtrlPkgCd;
+    public String getMaterialPackageCode() {
+        return materialPackageCode;
     }
 
-    public void setHzrdMtrlPkgCd(String hzrdMtrlPkgCd) {
-        this.hzrdMtrlPkgCd = hzrdMtrlPkgCd;
+    public void setMaterialPackageCode(String materialPackageCode) {
+        this.materialPackageCode = materialPackageCode;
     }
 
-    public String getHzrdGovtMtrlCd() {
-        return hzrdGovtMtrlCd;
+    public String getGovtMaterialCode() {
+        return govtMaterialCode;
     }
 
-    public void setHzrdGovtMtrlCd(String hzrdGovtMtrlCd) {
-        this.hzrdGovtMtrlCd = hzrdGovtMtrlCd;
+    public void setGovtMaterialCode(String govtMaterialCode) {
+        this.govtMaterialCode = govtMaterialCode;
     }
 
     public Timestamp getCreationDate() {
@@ -126,13 +126,13 @@ public class HazardCode {
 
         HazardCode that = (HazardCode) o;
 
-        if (hzrdCd != that.hzrdCd) return false;
-        if (hzrdClsCd != null ? !hzrdClsCd.equals(that.hzrdClsCd) : that.hzrdClsCd != null) return false;
-        if (hzrdDesc1 != null ? !hzrdDesc1.equals(that.hzrdDesc1) : that.hzrdDesc1 != null) return false;
-        if (hzrdDesc2 != null ? !hzrdDesc2.equals(that.hzrdDesc2) : that.hzrdDesc2 != null) return false;
-        if (hzrdMtrlPkgCd != null ? !hzrdMtrlPkgCd.equals(that.hzrdMtrlPkgCd) : that.hzrdMtrlPkgCd != null)
+        if (id != that.id) return false;
+        if (hazardClassId != that.hazardClassId) return false;
+        if (description1 != null ? !description1.equals(that.description1) : that.description1 != null) return false;
+        if (description2 != null ? !description2.equals(that.description2) : that.description2 != null) return false;
+        if (materialPackageCode != null ? !materialPackageCode.equals(that.materialPackageCode) : that.materialPackageCode != null)
             return false;
-        if (hzrdGovtMtrlCd != null ? !hzrdGovtMtrlCd.equals(that.hzrdGovtMtrlCd) : that.hzrdGovtMtrlCd != null)
+        if (govtMaterialCode != null ? !govtMaterialCode.equals(that.govtMaterialCode) : that.govtMaterialCode != null)
             return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
@@ -147,12 +147,12 @@ public class HazardCode {
 
     @Override
     public int hashCode() {
-        int result = hzrdCd;
-        result = 31 * result + (hzrdClsCd != null ? hzrdClsCd.hashCode() : 0);
-        result = 31 * result + (hzrdDesc1 != null ? hzrdDesc1.hashCode() : 0);
-        result = 31 * result + (hzrdDesc2 != null ? hzrdDesc2.hashCode() : 0);
-        result = 31 * result + (hzrdMtrlPkgCd != null ? hzrdMtrlPkgCd.hashCode() : 0);
-        result = 31 * result + (hzrdGovtMtrlCd != null ? hzrdGovtMtrlCd.hashCode() : 0);
+        int result = id;
+        result = 31 * result + hazardClassId;
+        result = 31 * result + (description1 != null ? description1.hashCode() : 0);
+        result = 31 * result + (description2 != null ? description2.hashCode() : 0);
+        result = 31 * result + (materialPackageCode != null ? materialPackageCode.hashCode() : 0);
+        result = 31 * result + (govtMaterialCode != null ? govtMaterialCode.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

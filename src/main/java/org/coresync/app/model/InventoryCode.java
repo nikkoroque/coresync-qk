@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "inv_cd", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "inventory_code", schema = "inventory_mgt", catalog = "coresync")
 public class InventoryCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "inv_cd_id")
-    private int invCdId;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "inv_cd_desc")
-    private String invCdDesc;
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -27,20 +27,20 @@ public class InventoryCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public int getInvCdId() {
-        return invCdId;
+    public int getId() {
+        return id;
     }
 
-    public void setInvCdId(int invCdId) {
-        this.invCdId = invCdId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getInvCdDesc() {
-        return invCdDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInvCdDesc(String invCdDesc) {
-        this.invCdDesc = invCdDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -82,8 +82,8 @@ public class InventoryCode {
 
         InventoryCode that = (InventoryCode) o;
 
-        if (invCdId != that.invCdId) return false;
-        if (invCdDesc != null ? !invCdDesc.equals(that.invCdDesc) : that.invCdDesc != null) return false;
+        if (id != that.id) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -97,8 +97,8 @@ public class InventoryCode {
 
     @Override
     public int hashCode() {
-        int result = invCdId;
-        result = 31 * result + (invCdDesc != null ? invCdDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

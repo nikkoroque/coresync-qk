@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "manufacturer_master", schema = "inventory_mgt", catalog = "coresync")
-public class ManufacturerMaster {
+@Table(name = "supplier_master", schema = "inventory_mgt", catalog = "coresync")
+public class SupplierMaster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "manufacturer_code")
-    private String manufacturerCode;
+    @Column(name = "supplier_code")
+    private String supplierCode;
     @Basic
-    @Column(name = "manufacturer_name")
-    private String manufacturerName;
+    @Column(name = "supplier_name")
+    private String supplierName;
     @Basic
     @Column(name = "address")
     private String address;
@@ -26,6 +26,12 @@ public class ManufacturerMaster {
     @Basic
     @Column(name = "email")
     private String email;
+    @Basic
+    @Column(name = "tax_identification_number")
+    private String taxIdentificationNumber;
+    @Basic
+    @Column(name = "bank_account_details")
+    private String bankAccountDetails;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -47,20 +53,20 @@ public class ManufacturerMaster {
         this.id = id;
     }
 
-    public String getManufacturerCode() {
-        return manufacturerCode;
+    public String getSupplierCode() {
+        return supplierCode;
     }
 
-    public void setManufacturerCode(String manufacturerCode) {
-        this.manufacturerCode = manufacturerCode;
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
-    public String getManufacturerName() {
-        return manufacturerName;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setManufacturerName(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public String getAddress() {
@@ -85,6 +91,22 @@ public class ManufacturerMaster {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTaxIdentificationNumber() {
+        return taxIdentificationNumber;
+    }
+
+    public void setTaxIdentificationNumber(String taxIdentificationNumber) {
+        this.taxIdentificationNumber = taxIdentificationNumber;
+    }
+
+    public String getBankAccountDetails() {
+        return bankAccountDetails;
+    }
+
+    public void setBankAccountDetails(String bankAccountDetails) {
+        this.bankAccountDetails = bankAccountDetails;
     }
 
     public Timestamp getCreationDate() {
@@ -124,17 +146,19 @@ public class ManufacturerMaster {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ManufacturerMaster that = (ManufacturerMaster) o;
+        SupplierMaster that = (SupplierMaster) o;
 
         if (id != that.id) return false;
-        if (manufacturerCode != null ? !manufacturerCode.equals(that.manufacturerCode) : that.manufacturerCode != null)
-            return false;
-        if (manufacturerName != null ? !manufacturerName.equals(that.manufacturerName) : that.manufacturerName != null)
-            return false;
+        if (supplierCode != null ? !supplierCode.equals(that.supplierCode) : that.supplierCode != null) return false;
+        if (supplierName != null ? !supplierName.equals(that.supplierName) : that.supplierName != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (contactNumber != null ? !contactNumber.equals(that.contactNumber) : that.contactNumber != null)
             return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (taxIdentificationNumber != null ? !taxIdentificationNumber.equals(that.taxIdentificationNumber) : that.taxIdentificationNumber != null)
+            return false;
+        if (bankAccountDetails != null ? !bankAccountDetails.equals(that.bankAccountDetails) : that.bankAccountDetails != null)
+            return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -149,11 +173,13 @@ public class ManufacturerMaster {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (manufacturerCode != null ? manufacturerCode.hashCode() : 0);
-        result = 31 * result + (manufacturerName != null ? manufacturerName.hashCode() : 0);
+        result = 31 * result + (supplierCode != null ? supplierCode.hashCode() : 0);
+        result = 31 * result + (supplierName != null ? supplierName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (contactNumber != null ? contactNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (taxIdentificationNumber != null ? taxIdentificationNumber.hashCode() : 0);
+        result = 31 * result + (bankAccountDetails != null ? bankAccountDetails.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

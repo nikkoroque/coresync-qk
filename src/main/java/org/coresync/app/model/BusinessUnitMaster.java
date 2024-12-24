@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "manufacturer_master", schema = "inventory_mgt", catalog = "coresync")
-public class ManufacturerMaster {
+@Table(name = "business_unit_master", schema = "inventory_mgt", catalog = "coresync")
+public class BusinessUnitMaster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "manufacturer_code")
-    private String manufacturerCode;
+    @Column(name = "business_unit_code")
+    private String businessUnitCode;
     @Basic
-    @Column(name = "manufacturer_name")
-    private String manufacturerName;
+    @Column(name = "business_unit_name")
+    private String businessUnitName;
     @Basic
     @Column(name = "address")
     private String address;
@@ -26,6 +26,12 @@ public class ManufacturerMaster {
     @Basic
     @Column(name = "email")
     private String email;
+    @Basic
+    @Column(name = "tax_identification_number")
+    private String taxIdentificationNumber;
+    @Basic
+    @Column(name = "jurisdiction_id")
+    private int jurisdictionId;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -47,20 +53,20 @@ public class ManufacturerMaster {
         this.id = id;
     }
 
-    public String getManufacturerCode() {
-        return manufacturerCode;
+    public String getBusinessUnitCode() {
+        return businessUnitCode;
     }
 
-    public void setManufacturerCode(String manufacturerCode) {
-        this.manufacturerCode = manufacturerCode;
+    public void setBusinessUnitCode(String businessUnitCode) {
+        this.businessUnitCode = businessUnitCode;
     }
 
-    public String getManufacturerName() {
-        return manufacturerName;
+    public String getBusinessUnitName() {
+        return businessUnitName;
     }
 
-    public void setManufacturerName(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
+    public void setBusinessUnitName(String businessUnitName) {
+        this.businessUnitName = businessUnitName;
     }
 
     public String getAddress() {
@@ -85,6 +91,22 @@ public class ManufacturerMaster {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTaxIdentificationNumber() {
+        return taxIdentificationNumber;
+    }
+
+    public void setTaxIdentificationNumber(String taxIdentificationNumber) {
+        this.taxIdentificationNumber = taxIdentificationNumber;
+    }
+
+    public int getJurisdictionId() {
+        return jurisdictionId;
+    }
+
+    public void setJurisdictionId(int jurisdictionId) {
+        this.jurisdictionId = jurisdictionId;
     }
 
     public Timestamp getCreationDate() {
@@ -124,17 +146,20 @@ public class ManufacturerMaster {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ManufacturerMaster that = (ManufacturerMaster) o;
+        BusinessUnitMaster that = (BusinessUnitMaster) o;
 
         if (id != that.id) return false;
-        if (manufacturerCode != null ? !manufacturerCode.equals(that.manufacturerCode) : that.manufacturerCode != null)
+        if (jurisdictionId != that.jurisdictionId) return false;
+        if (businessUnitCode != null ? !businessUnitCode.equals(that.businessUnitCode) : that.businessUnitCode != null)
             return false;
-        if (manufacturerName != null ? !manufacturerName.equals(that.manufacturerName) : that.manufacturerName != null)
+        if (businessUnitName != null ? !businessUnitName.equals(that.businessUnitName) : that.businessUnitName != null)
             return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (contactNumber != null ? !contactNumber.equals(that.contactNumber) : that.contactNumber != null)
             return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (taxIdentificationNumber != null ? !taxIdentificationNumber.equals(that.taxIdentificationNumber) : that.taxIdentificationNumber != null)
+            return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -149,11 +174,13 @@ public class ManufacturerMaster {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (manufacturerCode != null ? manufacturerCode.hashCode() : 0);
-        result = 31 * result + (manufacturerName != null ? manufacturerName.hashCode() : 0);
+        result = 31 * result + (businessUnitCode != null ? businessUnitCode.hashCode() : 0);
+        result = 31 * result + (businessUnitName != null ? businessUnitName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (contactNumber != null ? contactNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (taxIdentificationNumber != null ? taxIdentificationNumber.hashCode() : 0);
+        result = 31 * result + jurisdictionId;
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

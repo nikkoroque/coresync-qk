@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "trk_itm_cd", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "track_item_code", schema = "inventory_mgt", catalog = "coresync")
 public class TrackItemCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "trk_itm_cd")
-    private String trkItmCd;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "trk_itm_desc")
-    private String trkItmDesc;
+    @Column(name = "code")
+    private String code;
+    @Basic
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -27,20 +30,28 @@ public class TrackItemCode {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public String getTrkItmCd() {
-        return trkItmCd;
+    public int getId() {
+        return id;
     }
 
-    public void setTrkItmCd(String trkItmCd) {
-        this.trkItmCd = trkItmCd;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTrkItmDesc() {
-        return trkItmDesc;
+    public String getCode() {
+        return code;
     }
 
-    public void setTrkItmDesc(String trkItmDesc) {
-        this.trkItmDesc = trkItmDesc;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -82,8 +93,9 @@ public class TrackItemCode {
 
         TrackItemCode that = (TrackItemCode) o;
 
-        if (trkItmCd != null ? !trkItmCd.equals(that.trkItmCd) : that.trkItmCd != null) return false;
-        if (trkItmDesc != null ? !trkItmDesc.equals(that.trkItmDesc) : that.trkItmDesc != null) return false;
+        if (id != that.id) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -97,8 +109,9 @@ public class TrackItemCode {
 
     @Override
     public int hashCode() {
-        int result = trkItmCd != null ? trkItmCd.hashCode() : 0;
-        result = 31 * result + (trkItmDesc != null ? trkItmDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);

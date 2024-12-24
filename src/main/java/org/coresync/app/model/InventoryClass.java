@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "inv_cls", schema = "inventory_mgt", catalog = "coresync")
+@Table(name = "inventory_class", schema = "inventory_mgt", catalog = "coresync")
 public class InventoryClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "inv_cls_id")
-    private int invClsId;
+    @Column(name = "id")
+    private int id;
     @Basic
-    @Column(name = "inv_cd_id")
-    private int invCdId;
+    @Column(name = "inventory_code_id")
+    private int inventoryCodeId;
     @Basic
-    @Column(name = "inv_cls_desc")
-    private String invClsDesc;
+    @Column(name = "description")
+    private String description;
     @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
@@ -30,28 +30,28 @@ public class InventoryClass {
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
 
-    public int getInvClsId() {
-        return invClsId;
+    public int getId() {
+        return id;
     }
 
-    public void setInvClsId(int invClsId) {
-        this.invClsId = invClsId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getInvCdId() {
-        return invCdId;
+    public int getInventoryCodeId() {
+        return inventoryCodeId;
     }
 
-    public void setInvCdId(int invCdId) {
-        this.invCdId = invCdId;
+    public void setInventoryCodeId(int inventoryCodeId) {
+        this.inventoryCodeId = inventoryCodeId;
     }
 
-    public String getInvClsDesc() {
-        return invClsDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInvClsDesc(String invClsDesc) {
-        this.invClsDesc = invClsDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Timestamp getCreationDate() {
@@ -93,9 +93,9 @@ public class InventoryClass {
 
         InventoryClass that = (InventoryClass) o;
 
-        if (invClsId != that.invClsId) return false;
-        if (invCdId != that.invCdId) return false;
-        if (invClsDesc != null ? !invClsDesc.equals(that.invClsDesc) : that.invClsDesc != null) return false;
+        if (id != that.id) return false;
+        if (inventoryCodeId != that.inventoryCodeId) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
             return false;
@@ -109,9 +109,9 @@ public class InventoryClass {
 
     @Override
     public int hashCode() {
-        int result = invClsId;
-        result = 31 * result + invCdId;
-        result = 31 * result + (invClsDesc != null ? invClsDesc.hashCode() : 0);
+        int result = id;
+        result = 31 * result + inventoryCodeId;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
         result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
