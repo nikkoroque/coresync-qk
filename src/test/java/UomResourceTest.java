@@ -7,7 +7,7 @@ import org.coresync.app.repository.inventory.UomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -61,9 +61,16 @@ public class UomResourceTest {
 
     @Test
     void testUomLifeCycle() {
-
         // Step 1: Add new UOM Code
-        UnitOfMeasure newUom = new UnitOfMeasure(0, "OZ", "Ounce", Timestamp.valueOf("2024-12-24 05:19:15"), "QKTADEV", Timestamp.valueOf("2024-12-24 05:19:15"), "QKTADEV");
+        UnitOfMeasure newUom = new UnitOfMeasure(
+                0,
+                "OZ",
+                "Ounce",
+                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), // Valid ISO-8601 format with offset
+                "QKTADEV",
+                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),
+                "QKTADEV"
+        );
 
         int newUomId = given()
                 .contentType(ContentType.JSON)
@@ -82,7 +89,7 @@ public class UomResourceTest {
                 "Ounces",             // Updated description
                 newUom.getCreationDate(),   // Preserve original created date
                 newUom.getCreatedByUser(),  // Preserve original created by
-                Timestamp.valueOf("2024-12-20 15:30:00"), // Updated modified date
+                OffsetDateTime.parse("2024-12-20T15:30:00Z"), // Updated modified date with offset
                 "QKTUDEV"                         // Updated modified by
         );
 

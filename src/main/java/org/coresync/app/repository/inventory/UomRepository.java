@@ -9,7 +9,7 @@ import org.coresync.app.model.PaginatedResult;
 import org.coresync.app.model.UnitOfMeasure;
 import org.coresync.app.model.UnitOfMeasure$;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -117,13 +117,18 @@ public class UomRepository {
     }
 
     // TODO: Future release filter
-    public Stream<UnitOfMeasure> filterUomCodes(String code, String description, Timestamp creationDate, String createdByUser, Timestamp lastUpdateDate, String lastUpdatedByUser) {
+    public Stream<UnitOfMeasure> filterUomCodes(String code, String description, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
         return jpaStreamer.stream(UnitOfMeasure.class)
-                .filter(code != null ? UnitOfMeasure$.code.containsIgnoreCase(code) : e -> true )
+                .filter(code != null ? UnitOfMeasure$.code.containsIgnoreCase(code) : e -> true)
                 .filter(description != null ? UnitOfMeasure$.description.containsIgnoreCase(description) : e -> true)
-                .filter(creationDate != null ? UnitOfMeasure$.creationDate.greaterOrEqual(creationDate).and(UnitOfMeasure$.creationDate.lessThan(new Timestamp(creationDate.getTime() + 86400000))) : e -> true)
-                .filter(createdByUser != null ? UnitOfMeasure$.createdByUser.containsIgnoreCase(createdByUser) : e -> true )
-                .filter(lastUpdateDate != null ? UnitOfMeasure$.lastUpdateDate.greaterOrEqual(lastUpdateDate).and(UnitOfMeasure$.lastUpdateDate.lessThan(new Timestamp(lastUpdateDate.getTime() + 86400000))) : e -> true )
-                .filter(lastUpdatedByUser != null ? UnitOfMeasure$.lastUpdatedByUser.containsIgnoreCase(lastUpdatedByUser) : e -> true );
+                .filter(creationDate != null ?
+                        UnitOfMeasure$.creationDate.greaterOrEqual(creationDate)
+                                .and(UnitOfMeasure$.creationDate.lessThan(creationDate.plusDays(1))) : e -> true)
+                .filter(createdByUser != null ? UnitOfMeasure$.createdByUser.containsIgnoreCase(createdByUser) : e -> true)
+                .filter(lastUpdateDate != null ?
+                        UnitOfMeasure$.lastUpdateDate.greaterOrEqual(lastUpdateDate)
+                                .and(UnitOfMeasure$.lastUpdateDate.lessThan(lastUpdateDate.plusDays(1))) : e -> true)
+                .filter(lastUpdatedByUser != null ? UnitOfMeasure$.lastUpdatedByUser.containsIgnoreCase(lastUpdatedByUser) : e -> true);
     }
+
 }
