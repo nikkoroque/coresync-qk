@@ -19,16 +19,12 @@ public class UnitOfMeasure {
     private String description;
     @Basic
     @Column(name = "creation_date")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
     private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Schema(description = "Creation Date in 'yyyy-MM-dd HH:mm:ss' format", example = "2024-12-20 15:30:00")
     private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
