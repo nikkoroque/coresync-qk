@@ -140,13 +140,13 @@ public class UomResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
             summary = "Check UOM Code existence by UOM ID",
-            description = "Validates whether a UOM Code with the given Code exists."
+            description = "Validates whether a UOM Code with the given ID exists."
     )
     public Response validateUomCodeExists(@PathParam("id") int id) {
         boolean isValid = uomRepository.validateUomCodeExists(id);
 
         if (isValid) {
-            return Response.status(Response.Status.FOUND)
+            return Response.status(Response.Status.CONFLICT)
                     .entity("{\"message\":\"UOM Code exists\", \"ID\":" + id + "}")
                     .build();
         } else {
@@ -176,7 +176,7 @@ public class UomResource {
 
             if (exists) {
                 // UOM Code already exists
-                return Response.status(Response.Status.BAD_REQUEST)
+                return Response.status(Response.Status.CONFLICT)
                         .entity("{\"message\":\"UOM Code already exists.\"}")
                         .build();
             }

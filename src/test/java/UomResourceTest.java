@@ -50,13 +50,23 @@ public class UomResourceTest {
     }
 
     @Test
-    void validateUomCodeExists() {
+    void testValidateUomCodeExists() {
         given()
                 .when()
                 .get("/validate/id/1")
                 .then()
-                .statusCode(302)
+                .statusCode(409)
                 .body("message", is("UOM Code exists"));
+    }
+
+    @Test
+    void testValidateUomCodeDuplicate() {
+        given()
+                .when()
+                .get("/validate/code/EA")
+                .then()
+                .statusCode(409)
+                .body("message", is("UOM Code already exists."));
     }
 
     @Test

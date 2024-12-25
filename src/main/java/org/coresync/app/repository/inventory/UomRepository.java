@@ -27,11 +27,11 @@ public class UomRepository {
 
     public List<UnitOfMeasure> getAllUomCodes() {
         return jpaStreamer.stream(UnitOfMeasure.class).collect(Collectors.toList());
-    };
+    }
 
     public Optional<UnitOfMeasure> getUomCodeDetail(int id) {
         return jpaStreamer.stream(UnitOfMeasure.class).filter(UnitOfMeasure$.id.equal(id)).findFirst();
-    };
+    }
 
     @Transactional
     public UnitOfMeasure addUomCode(UnitOfMeasure unitOfMeasure) {
