@@ -45,6 +45,18 @@ public class SupplierMaster {
     @Column(name = "tax_identification_number")
     private String taxIdentificationNumber;
     @Basic
+    @Column(name = "status_cd")
+    private String statusCd;
+    @Basic
+    @Column(name = "net_days_to_pay")
+    private Integer netDaysToPay;
+    @Basic
+    @Column(name = "discount_percent")
+    private Integer discountPercent;
+    @Basic
+    @Column(name = "discount_days")
+    private Integer discountDays;
+    @Basic
     @Column(name = "bank_account_details")
     private String bankAccountDetails;
     @Basic
@@ -61,7 +73,7 @@ public class SupplierMaster {
     private String lastUpdatedByUser;
 
     public SupplierMaster() {}
-    public SupplierMaster(int id, String supplierCode, String supplierName, String address, String city, String stateCd, String zipCd, String country, String intSw, String contactNumber, String email, String taxIdentificationNumber, String bankAccountDetails, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+    public SupplierMaster(int id, String supplierCode, String supplierName, String address, String city, String stateCd, String zipCd, String country, String intSw, String contactNumber, String email, String taxIdentificationNumber, String statusCd, int netDaysToPay, int discountPercent, int discountDays,String bankAccountDetails, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
         this.id = id;
         this.supplierCode = supplierCode;
         this.supplierName = supplierName;
@@ -74,6 +86,10 @@ public class SupplierMaster {
         this.contactNumber = contactNumber;
         this.email = email;
         this.taxIdentificationNumber = taxIdentificationNumber;
+        this.statusCd = statusCd;
+        this.netDaysToPay = netDaysToPay;
+        this.discountPercent = discountPercent;
+        this.discountDays = discountDays;
         this.bankAccountDetails =bankAccountDetails;
         this.creationDate = creationDate;
         this.createdByUser = createdByUser;
@@ -177,6 +193,38 @@ public class SupplierMaster {
         this.taxIdentificationNumber = taxIdentificationNumber;
     }
 
+    public String getStatusCd() {
+        return statusCd;
+    }
+
+    public void setStatusCd(String statusCd) {
+        this.statusCd = statusCd;
+    }
+
+    public Integer getNetDaysToPay() {
+        return netDaysToPay;
+    }
+
+    public void setNetDaysToPay(Integer netDaysToPay) {
+        this.netDaysToPay = netDaysToPay;
+    }
+
+    public Integer getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(Integer discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public Integer getDiscountDays() {
+        return discountDays;
+    }
+
+    public void setDiscountDays(Integer discountDays) {
+        this.discountDays = discountDays;
+    }
+
     public String getBankAccountDetails() {
         return bankAccountDetails;
     }
@@ -228,7 +276,7 @@ public class SupplierMaster {
         if (supplierCode != null ? !supplierCode.equals(that.supplierCode) : that.supplierCode != null) return false;
         if (supplierName != null ? !supplierName.equals(that.supplierName) : that.supplierName != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return  false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
         if (stateCd != null ? !stateCd.equals(that.stateCd) : that.stateCd != null) return false;
         if (zipCd != null ? !zipCd.equals(that.zipCd) : that.zipCd != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;
@@ -238,6 +286,11 @@ public class SupplierMaster {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (taxIdentificationNumber != null ? !taxIdentificationNumber.equals(that.taxIdentificationNumber) : that.taxIdentificationNumber != null)
             return false;
+        if (statusCd != null ? !statusCd.equals(that.statusCd) : that.statusCd != null) return false;
+        if (netDaysToPay != null ? !netDaysToPay.equals(that.netDaysToPay) : that.netDaysToPay != null) return false;
+        if (discountPercent != null ? !discountPercent.equals(that.discountPercent) : that.discountPercent != null)
+            return false;
+        if (discountDays != null ? !discountDays.equals(that.discountDays) : that.discountDays != null) return false;
         if (bankAccountDetails != null ? !bankAccountDetails.equals(that.bankAccountDetails) : that.bankAccountDetails != null)
             return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
@@ -265,6 +318,10 @@ public class SupplierMaster {
         result = 31 * result + (contactNumber != null ? contactNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (taxIdentificationNumber != null ? taxIdentificationNumber.hashCode() : 0);
+        result = 31 * result + (statusCd != null ? statusCd.hashCode() : 0);
+        result = 31 * result + (netDaysToPay != null ? netDaysToPay.hashCode() : 0);
+        result = 31 * result + (discountPercent != null ? discountPercent.hashCode() : 0);
+        result = 31 * result + (discountDays != null ? discountDays.hashCode() : 0);
         result = 31 * result + (bankAccountDetails != null ? bankAccountDetails.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
