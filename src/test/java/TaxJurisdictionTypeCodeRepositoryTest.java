@@ -25,7 +25,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
     private JPAStreamer jpaStreamer;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         MockitoAnnotations.openMocks(this);
     }
 

@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "supplier_master", schema = "inventory_mgt", catalog = "coresync")
@@ -34,16 +34,32 @@ public class SupplierMaster {
     private String bankAccountDetails;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public SupplierMaster() {}
+    public SupplierMaster(int id, String supplierCode, String supplierName, String address, String contactNumber, String email, String taxIdentificationNumber, String bankAccountDetails, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.supplierCode = supplierCode;
+        this.supplierName = supplierName;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.taxIdentificationNumber = taxIdentificationNumber;
+        this.bankAccountDetails =bankAccountDetails;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getId() {
         return id;
@@ -109,11 +125,11 @@ public class SupplierMaster {
         this.bankAccountDetails = bankAccountDetails;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -125,11 +141,11 @@ public class SupplierMaster {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
