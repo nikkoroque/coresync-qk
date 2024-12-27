@@ -69,7 +69,7 @@ public class TrackItemCodeResourceTest {
     @Test
     void testTrackItemCodeLifeCycle() {
         //Add Track Item Code
-        TrackItemCode mockNewItemCode = new TrackItemCode(0, "L", "Tracked by License Plate", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode mockNewItemCode = new TrackItemCode(0, "G", "Tracked by License Plate", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
 
         int newItemCodeId = given()
                 .contentType(ContentType.JSON)
@@ -82,7 +82,7 @@ public class TrackItemCodeResourceTest {
                 .path("id");
 
         // Update Track Item Code
-        TrackItemCode mockUpdateItemCode = new TrackItemCode(newItemCodeId, "L", "Tracked by License Plates", mockNewItemCode.getCreationDate(), mockNewItemCode.getCreatedByUser(), OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKTUDEV");
+        TrackItemCode mockUpdateItemCode = new TrackItemCode(newItemCodeId, "G", "Tracked by License Plates", mockNewItemCode.getCreationDate(), mockNewItemCode.getCreatedByUser(), OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKTUDEV");
 
         given()
                 .contentType(ContentType.JSON)

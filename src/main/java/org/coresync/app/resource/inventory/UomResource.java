@@ -1,7 +1,6 @@
 package org.coresync.app.resource.inventory;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -26,9 +25,6 @@ public class UomResource {
     @Inject
     private UomRepository uomRepository;
 
-    @Inject
-    private EntityManager entityManager;
-
     /**
      * Fetches all UOM codes in the database.
      */
@@ -50,7 +46,7 @@ public class UomResource {
     public Response getUomCodeDetail(@PathParam("id") int id) {
        try {
            Optional<UnitOfMeasure> unitCode = uomRepository.getUomCodeDetail(id);
-           return unitCode.map(uom -> Response.ok(uom).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("UOM Code with not found.").build());
+           return unitCode.map(uom -> Response.ok(uom).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("UOM Code not found.").build());
        } catch (IllegalArgumentException e) {
            return Response.status(Response.Status.CONFLICT).entity("Error: " + e.getMessage()).build();
        } catch (Exception e) {

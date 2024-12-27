@@ -74,7 +74,7 @@ public class UomResourceTest {
         // Step 1: Add new UOM Code
         UnitOfMeasure newUom = new UnitOfMeasure(
                 0,
-                "OZ",
+                "AZ",
                 "Ounce",
                 OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), // Valid ISO-8601 format with offset
                 "QKTADEV",
@@ -95,7 +95,7 @@ public class UomResourceTest {
         // Step 2: Update UOM Code
         UnitOfMeasure updateUom = new UnitOfMeasure(
                 newUomId, // Use the captured ID
-                "OZ",                 // Updated code
+                "AZ",                 // Updated code
                 "Ounces",             // Updated description
                 newUom.getCreationDate(),   // Preserve original created date
                 newUom.getCreatedByUser(),  // Preserve original created by

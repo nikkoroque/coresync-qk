@@ -36,7 +36,7 @@ public class UomRepository {
     @Transactional
     public UnitOfMeasure addUomCode(UnitOfMeasure unitOfMeasure) {
         if (unitOfMeasure == null) {
-            throw new IllegalArgumentException("UnitOfMeasure cannot be null");
+            throw new IllegalArgumentException("Unit Of Measure cannot be null");
         }
         entityManager.persist(unitOfMeasure);
         return unitOfMeasure;
