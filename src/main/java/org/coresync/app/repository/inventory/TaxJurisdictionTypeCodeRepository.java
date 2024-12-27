@@ -52,7 +52,7 @@ public class TaxJurisdictionTypeCodeRepository {
         TaxJurisdictionTypeCode taxJrsTypCd = entityManager.find(TaxJurisdictionTypeCode.class, id);
 
         if (!validateTaxJurisdictionTypeCodeExists(id)) {
-            throw new IllegalArgumentException("Tax Jurisdiction Type Code with " + id + " does not exist.");
+            throw new IllegalArgumentException("Tax Jurisdiction Type Code with ID" + id + " does not exist.");
         }
         entityManager.remove(taxJrsTypCd);
     }

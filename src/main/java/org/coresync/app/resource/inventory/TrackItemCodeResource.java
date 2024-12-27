@@ -1,7 +1,6 @@
 package org.coresync.app.resource.inventory;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -19,9 +18,6 @@ public class TrackItemCodeResource {
     @Inject
     private TrackItemCodeRepository trackItemCodeRepository;
 
-    @Inject
-    private EntityManager entityManager;
-
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +33,7 @@ public class TrackItemCodeResource {
     public Response getTrackItemCodeDetail(@PathParam("id") int id) {
         try {
             Optional<TrackItemCode> itemCodeDetail = trackItemCodeRepository.getTrackItemCodeDetail(id);
-            return itemCodeDetail.map(itemCd -> Response.ok(itemCd).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Track Item Code with " + id + " does not exist").build());
+            return itemCodeDetail.map(itemCd -> Response.ok(itemCd).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Track Item Code with ID " + id + " does not exist").build());
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.CONFLICT).entity("Error: " + e.getMessage()).build();
         } catch (Exception e) {
