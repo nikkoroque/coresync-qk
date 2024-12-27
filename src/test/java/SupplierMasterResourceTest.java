@@ -67,7 +67,7 @@ public class SupplierMasterResourceTest {
 
     @Test
     void testSupplierLifeCycle() {
-        SupplierMaster mockNewSupplier = new SupplierMaster(0, "999", "Kraft Corp", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+        SupplierMaster mockNewSupplier = new SupplierMaster(0, "999", "Kraft Corp", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "ACTIVE", 10, 5, 10, "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
 
         int newSupplierId = given()
                 .contentType(ContentType.JSON)
@@ -79,7 +79,7 @@ public class SupplierMasterResourceTest {
                 .extract()
                 .path("id");
 
-        SupplierMaster mockUpdateSupplier = new SupplierMaster(newSupplierId, "999", "Kraft Inc", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "15496875461231", mockNewSupplier.getCreationDate(), mockNewSupplier.getCreatedByUser(),OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+        SupplierMaster mockUpdateSupplier = new SupplierMaster(newSupplierId, "999", "Kraft Inc", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "ACTIVE", 10, 5, 10, "15496875461231", mockNewSupplier.getCreationDate(), mockNewSupplier.getCreatedByUser(),OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
 
         given()
                 .contentType(ContentType.JSON)
