@@ -21,6 +21,21 @@ public class SupplierMaster {
     @Column(name = "address")
     private String address;
     @Basic
+    @Column(name = "city")
+    private String city;
+    @Basic
+    @Column(name = "state_cd")
+    private String stateCd;
+    @Basic
+    @Column(name = "zip_cd")
+    private String zipCd;
+    @Basic
+    @Column(name = "country")
+    private String country;
+    @Basic
+    @Column(name = "int_sw")
+    private String intSw;
+    @Basic
     @Column(name = "contact_number")
     private String contactNumber;
     @Basic
@@ -46,11 +61,16 @@ public class SupplierMaster {
     private String lastUpdatedByUser;
 
     public SupplierMaster() {}
-    public SupplierMaster(int id, String supplierCode, String supplierName, String address, String contactNumber, String email, String taxIdentificationNumber, String bankAccountDetails, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+    public SupplierMaster(int id, String supplierCode, String supplierName, String address, String city, String stateCd, String zipCd, String country, String intSw, String contactNumber, String email, String taxIdentificationNumber, String bankAccountDetails, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
         this.id = id;
         this.supplierCode = supplierCode;
         this.supplierName = supplierName;
         this.address = address;
+        this.city = city;
+        this.stateCd = stateCd;
+        this.zipCd = zipCd;
+        this.country = country;
+        this.intSw = intSw;
         this.contactNumber = contactNumber;
         this.email = email;
         this.taxIdentificationNumber = taxIdentificationNumber;
@@ -91,6 +111,46 @@ public class SupplierMaster {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStateCd() {
+        return stateCd;
+    }
+
+    public void setStateCd(String stateCd) {
+        this.stateCd = stateCd;
+    }
+
+    public String getZipCd() {
+        return zipCd;
+    }
+
+    public void setZipCd(String zipCd) {
+        this.zipCd = zipCd;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getIntSw() {
+        return intSw;
+    }
+
+    public void setIntSw(String intSw) {
+        this.intSw = intSw;
     }
 
     public String getContactNumber() {
@@ -168,6 +228,11 @@ public class SupplierMaster {
         if (supplierCode != null ? !supplierCode.equals(that.supplierCode) : that.supplierCode != null) return false;
         if (supplierName != null ? !supplierName.equals(that.supplierName) : that.supplierName != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return  false;
+        if (stateCd != null ? !stateCd.equals(that.stateCd) : that.stateCd != null) return false;
+        if (zipCd != null ? !zipCd.equals(that.zipCd) : that.zipCd != null) return false;
+        if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (intSw != null ? !intSw.equals(that.intSw) : that.intSw != null) return false;
         if (contactNumber != null ? !contactNumber.equals(that.contactNumber) : that.contactNumber != null)
             return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -192,6 +257,11 @@ public class SupplierMaster {
         result = 31 * result + (supplierCode != null ? supplierCode.hashCode() : 0);
         result = 31 * result + (supplierName != null ? supplierName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (stateCd != null ? stateCd.hashCode() : 0);
+        result = 31 * result + (zipCd != null ? zipCd.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (intSw != null ? intSw.hashCode() : 0);
         result = 31 * result + (contactNumber != null ? contactNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (taxIdentificationNumber != null ? taxIdentificationNumber.hashCode() : 0);

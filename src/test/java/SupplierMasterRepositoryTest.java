@@ -29,11 +29,11 @@ public class SupplierMasterRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    SupplierMaster mockSupplier = new SupplierMaster(1, "111", "Kraft Corp", "Gardena CA", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+    SupplierMaster mockSupplier = new SupplierMaster(1, "111", "Kraft Corp", "Suite 305", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
 
     @Test
     void testGetAllSuppliers() {
-        List<SupplierMaster> mockSuppliers = List.of(new SupplierMaster(1, "111", "Kraft Corp", "Gardena CA", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"),new SupplierMaster(2, "222", "Mars Corp", "Gardena CA", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<SupplierMaster> mockSuppliers = List.of(new SupplierMaster(1, "111", "Kraft Corp", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"),new SupplierMaster(2, "222", "Mars Corp", "Gardena CA", "Gardena", "CA", "90234-09829", "USA", "Y", "18009584665", "email@email.com", "458658245SC", "15496875461231", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
 
         when(jpaStreamer.stream(SupplierMaster.class)).thenReturn(mockSuppliers.stream());
         List<SupplierMaster> result = supplierMasterRepository.getAllSuppliers();
