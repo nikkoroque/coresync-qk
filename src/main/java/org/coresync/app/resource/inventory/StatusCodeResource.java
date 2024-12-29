@@ -147,7 +147,7 @@ public class StatusCodeResource {
 
             if (exists) {
                 return Response.status(Response.Status.CONFLICT)
-                        .entity("{\"message\":\"Status Code already exists.\"}")
+                        .entity("{\"message\":\"Status Code already exists\"}")
                         .build();
             }
             return Response.status(Response.Status.OK)
