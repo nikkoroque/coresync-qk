@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class TaxJurisdictionTypeCodeRepository {
     @Inject
-    private JPAStreamer jpaStreamer;
+    JPAStreamer jpaStreamer;
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     public List<TaxJurisdictionTypeCode> getAllTaxJurisdictionTypeCodes() {
         return jpaStreamer.stream(TaxJurisdictionTypeCode.class).collect(Collectors.toList());

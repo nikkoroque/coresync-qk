@@ -16,7 +16,7 @@ import java.util.Optional;
 @Tag(name = "Tax Jurisdiction Type Code Resource", description = "Tax Jurisdiction api endpoints.")
 public class TaxJurisdictionTypeCodeResource {
     @Inject
-    private TaxJurisdictionTypeCodeRepository taxJurisdictionTypeCodeRepository;
+    TaxJurisdictionTypeCodeRepository taxJurisdictionTypeCodeRepository;
 
     @GET
     @Path("/")

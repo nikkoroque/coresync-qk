@@ -19,9 +19,9 @@ import java.util.stream.Stream;
 @ApplicationScoped
 public class UomRepository {
     @Inject
-    private JPAStreamer jpaStreamer;
+    JPAStreamer jpaStreamer;
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
     // TODO: For future release pagination
     private static final int PAGE_SIZE = 20;
 

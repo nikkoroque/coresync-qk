@@ -16,7 +16,7 @@ import java.util.Optional;
 @Tag(name = "Track Item Code Resource", description = "Track Item Code API endpoints.")
 public class TrackItemCodeResource {
     @Inject
-    private TrackItemCodeRepository trackItemCodeRepository;
+    TrackItemCodeRepository trackItemCodeRepository;
 
     @GET
     @Path("/")

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Tag(name = "Supplier Resource", description = "Supplier Master API endpoints.")
 public class SupplierMasterResource {
     @Inject
-    private SupplierMasterRepository supplierMasterRepository;
+    SupplierMasterRepository supplierMasterRepository;
 
     @GET
     @Path("/")

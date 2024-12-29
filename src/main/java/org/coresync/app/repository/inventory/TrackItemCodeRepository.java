@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class TrackItemCodeRepository {
     @Inject
-    private JPAStreamer jpaStreamer;
+    JPAStreamer jpaStreamer;
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     public List<TrackItemCode> getAllTrackItemCodes() {
         return jpaStreamer.stream(TrackItemCode.class).collect(Collectors.toList());

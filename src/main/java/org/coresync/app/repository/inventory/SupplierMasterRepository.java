@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class SupplierMasterRepository {
     @Inject
-    private JPAStreamer jpaStreamer;
+    JPAStreamer jpaStreamer;
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     public List<SupplierMaster> getAllSuppliers() {
         return jpaStreamer.stream(SupplierMaster.class).collect(Collectors.toList());

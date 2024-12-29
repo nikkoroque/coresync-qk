@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class UomResource {
 
     @Inject
-    private UomRepository uomRepository;
+    UomRepository uomRepository;
 
     /**
      * Fetches all UOM codes in the database.
