@@ -66,4 +66,47 @@ public class StatusCodeRepositoryTest {
         verify(entityManager, times(1)).persist(mockStatusCode);
     }
 
+    @Test
+    void testUpdateStatusCode() {
+        when(jpaStreamer.stream(StatusCode.class)).thenReturn(Stream.of(mockStatusCode));
+        when(entityManager.merge(mockStatusCode)).thenReturn(mockStatusCode);
+
+        StatusCode result = statusCodeRepository.updateStatusCode(mockStatusCode);
+
+        assertNotNull(result);
+        assertEquals(mockStatusCode, result);
+        verify(entityManager, times(1)).merge(mockStatusCode);
+    }
+
+    @Test
+    void testDeleteStatusCode() {
+        when(jpaStreamer.stream(StatusCode.class)).thenReturn(Stream.of(mockStatusCode));
+        when(entityManager.find(StatusCode.class, 1)).thenReturn(mockStatusCode);
+
+        doNothing().when(entityManager).remove(mockStatusCode);
+
+        statusCodeRepository.deleteStatusCode(1);
+        verify(entityManager, times(1)).remove(mockStatusCode);
+    }
+
+    @Test
+    void testValidateStatusCodeExists() {
+        when(jpaStreamer.stream(StatusCode.class)).thenReturn(Stream.of(mockStatusCode));
+
+        boolean exists = statusCodeRepository.validateStatusCodeExists(1);
+
+        assertTrue(exists, "Status code with ID 1 exist.");
+        verify(jpaStreamer, times(1)).stream(StatusCode.class);
+    }
+
+    @Test
+    void testValidateStatusCodeDuplicate() {
+        when(jpaStreamer.stream(StatusCode.class)).thenReturn(Stream.of(mockStatusCode));
+
+        boolean exists = statusCodeRepository.validateStatusCodeDuplicate("TESTSTAT");
+
+        assertTrue(exists, "Status Code TESTSTAT exists.");
+        verify(jpaStreamer, times(1)).stream(StatusCode.class);
+    }
+
 }

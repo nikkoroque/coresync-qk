@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.is;
 public class UomResourceTest {
 
     @Inject
-    private UomRepository uomRepository;
+    UomRepository uomRepository;
 
     @BeforeEach
     void setup() {

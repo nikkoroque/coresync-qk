@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class TrackItemCodeResourceTest {
     @Inject
-    private TrackItemCodeRepository trackItemCodeRepository;
+    TrackItemCodeRepository trackItemCodeRepository;
     @BeforeEach
     void setup() {
         RestAssured.baseURI = "http://localhost:8080/api/trk-itm-cd";

@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class TaxJurisdictionTypeCodeResourceTest {
     @Inject
-    private TaxJurisdictionTypeCodeRepository taxJurisdictionTypeCodeRepository;
+    TaxJurisdictionTypeCodeRepository taxJurisdictionTypeCodeRepository;
     @BeforeEach
     void setup() {
         RestAssured.baseURI = "http://localhost:8080/api/txjrs-typ-cd";

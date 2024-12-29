@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class SupplierMasterResourceTest {
     @Inject
-    private SupplierMasterRepository supplierMasterRepository;
+    SupplierMasterRepository supplierMasterRepository;
     @BeforeEach
     void setup() {
         RestAssured.baseURI = "http://localhost:8080/api/supplier";
