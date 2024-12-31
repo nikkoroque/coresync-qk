@@ -34,7 +34,7 @@ public class StatusCodeResource {
         try {
             Optional<StatusCode> statusCd = statusCodeRepository.getStatusCodeDetail(id);
 
-            return statusCd.map(status -> Response.ok(status).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Status Code note found.").build());
+            return statusCd.map(status -> Response.ok(status).build()).orElse(Response.status(Response.Status.NOT_FOUND).entity("Status Code not found.").build());
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.CONFLICT).entity("Error: " + e.getMessage()).build();
         } catch (Exception e) {
@@ -63,7 +63,6 @@ public class StatusCodeResource {
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.CONFLICT).entity("Error: " + e.getMessage()).build();
         } catch (Exception e) {
-            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Unexpected error occurred: " + e.getMessage()).build();
         }
     }

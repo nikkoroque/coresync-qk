@@ -20,7 +20,7 @@ public class StatusCodeResourceTest {
 
     @BeforeEach
     void setup() {
-        RestAssured.baseURI = "http://localhost:8080/api/status-codes";
+        RestAssured.baseURI = "http://localhost:8080/api/status-code";
     }
 
     @Test

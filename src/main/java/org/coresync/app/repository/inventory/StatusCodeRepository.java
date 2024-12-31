@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class StatusCodeRepository {
     @Inject
-    private JPAStreamer jpaStreamer;
+    JPAStreamer jpaStreamer;
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     public List<StatusCode> getAllStatusCodes() {
         return jpaStreamer.stream(StatusCode.class).collect(Collectors.toList());
