@@ -12,7 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/api/status-codes")
+@Path("/api/status-code")
 @Tag(name = "Status Code Resrouce", description = "Status Code api endpoints")
 public class StatusCodeResource {
     @Inject

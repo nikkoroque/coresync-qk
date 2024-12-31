@@ -23,6 +23,12 @@ public class StatusCodeRepository {
         return jpaStreamer.stream(StatusCode.class).collect(Collectors.toList());
     }
 
+    public List<String> getAllStatusCodeNames() {
+        return jpaStreamer.stream(StatusCode.class)
+                .map(StatusCode::getDescription)
+                .collect(Collectors.toList());
+    }
+
     public Optional<StatusCode> getStatusCodeDetail(int id) {
         return jpaStreamer.stream(StatusCode.class).filter(StatusCode$.id.equal(id)).findFirst();
     }
