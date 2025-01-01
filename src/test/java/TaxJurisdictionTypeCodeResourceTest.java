@@ -67,7 +67,7 @@ public class TaxJurisdictionTypeCodeResourceTest {
 
     @Test
     void testTaxJurisdictionTypeCodeLifeCycle() {
-        TaxJurisdictionTypeCode newTypeCode = new TaxJurisdictionTypeCode(0, "CMS", "CMS Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode newTypeCode = new TaxJurisdictionTypeCode(0, "CMS", "CMS Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         int newTypeCodeId = given()
                 .contentType(ContentType.JSON)
@@ -79,7 +79,7 @@ public class TaxJurisdictionTypeCodeResourceTest {
                 .extract()
                 .path("id");
 
-        TaxJurisdictionTypeCode updateTypeCode = new TaxJurisdictionTypeCode(newTypeCodeId, "CMS", "CMS Jurisdiction Type", newTypeCode.getCreationDate(), newTypeCode.getCreatedByUser(), OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKTUDEV");
+        TaxJurisdictionTypeCode updateTypeCode = new TaxJurisdictionTypeCode(newTypeCodeId, "CMS", "CMS Jurisdiction Type", newTypeCode.getCreationDate(), newTypeCode.getCreatedByUser(), OffsetDateTime.now(),"QKTUDEV");
 
         given()
                 .contentType(ContentType.JSON)

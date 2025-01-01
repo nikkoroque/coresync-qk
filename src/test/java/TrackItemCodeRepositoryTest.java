@@ -31,7 +31,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testGetAllTrackItemCodes() {
-        List<TrackItemCode> mockItemCodes = List.of(new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new TrackItemCode(2, "B", "Tracked by Barcode", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<TrackItemCode> mockItemCodes = List.of(new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new TrackItemCode(2, "B", "Tracked by Barcode", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(mockItemCodes.stream());
 
@@ -44,7 +44,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testGetTrackItemCodeDetail() {
-        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(Stream.of(mockItemCode));
 
@@ -57,7 +57,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testAddTrackItemCode() {
-        TrackItemCode newItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode newItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         doNothing().when(entityManager).persist(newItemCode);
 
@@ -70,7 +70,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testUpdateTrackItemCode() {
-        TrackItemCode existingMockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode existingMockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(Stream.of(existingMockItemCode));
         when(entityManager.merge(existingMockItemCode)).thenReturn(existingMockItemCode);
@@ -84,7 +84,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testDeleteTrackItemCode() {
-        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(Stream.of(mockItemCode));
         when(entityManager.find(TrackItemCode.class, 1)).thenReturn(mockItemCode);
@@ -97,7 +97,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testTrackItemCodeExists() {
-        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(Stream.of(mockItemCode));
 
@@ -109,7 +109,7 @@ public class TrackItemCodeRepositoryTest {
 
     @Test
     void testTrackItemCodeDuplicate() {
-        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TrackItemCode mockItemCode = new TrackItemCode(1, "N", "Not Tracked", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TrackItemCode.class)).thenReturn(Stream.of(mockItemCode));
 

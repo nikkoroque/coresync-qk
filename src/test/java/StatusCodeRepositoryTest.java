@@ -29,11 +29,11 @@ public class StatusCodeRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    StatusCode mockStatusCode = new StatusCode(1, "TESTSTAT", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+    StatusCode mockStatusCode = new StatusCode(1, "TESTSTAT", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
     @Test
     void testGetAllStatusCodes() {
-        List<StatusCode> mockStatusCodes = List.of(new StatusCode(1, "TESTSTAT", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new StatusCode(2, "TESTSTAT2", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<StatusCode> mockStatusCodes = List.of(new StatusCode(1, "TESTSTAT", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new StatusCode(2, "TESTSTAT2", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
 
         when(jpaStreamer.stream(StatusCode.class)).thenReturn(mockStatusCodes.stream());
 

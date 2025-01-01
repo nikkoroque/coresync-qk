@@ -76,9 +76,9 @@ public class UomResourceTest {
                 0,
                 "AZ",
                 "Ounce",
-                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), // Valid ISO-8601 format with offset
+                OffsetDateTime.now(), // Valid ISO-8601 format with offset
                 "QKTADEV",
-                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),
+                OffsetDateTime.now(),
                 "QKTADEV"
         );
 

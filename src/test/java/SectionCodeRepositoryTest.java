@@ -29,11 +29,11 @@ public class SectionCodeRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    SectionCode mockSectionCode = new SectionCode(1, "T99", "TEST99", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+    SectionCode mockSectionCode = new SectionCode(1, "T99", "TEST99", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
     @Test
     void testGetSectionCodes() {
-        List<SectionCode> mockSectionCodes = List.of(new SectionCode(1, "T99", "TEST99", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new SectionCode(2, "T100", "TEST100", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<SectionCode> mockSectionCodes = List.of(new SectionCode(1, "T99", "TEST99", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new SectionCode(2, "T100", "TEST100", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
 
         when(jpaStreamer.stream(SectionCode.class)).thenReturn(mockSectionCodes.stream());
         List<SectionCode> result = sectionCodeRepository.getSectionCodes();
@@ -70,10 +70,10 @@ public class SectionCodeRepositoryTest {
         when(jpaStreamer.stream(SectionCode.class)).thenReturn(Stream.of(mockSectionCode));
         when(entityManager.merge(mockSectionCode)).thenReturn(mockSectionCode);
 
-        SectionCode reuslt = sectionCodeRepository.updateSectionCode(mockSectionCode);
+        SectionCode result = sectionCodeRepository.updateSectionCode(mockSectionCode);
 
-        assertNotNull(reuslt);
-        assertEquals(mockSectionCode, reuslt);
+        assertNotNull(result);
+        assertEquals(mockSectionCode, result);
         verify(entityManager, times(1)).merge(mockSectionCode);
     }
 
@@ -96,7 +96,7 @@ public class SectionCodeRepositoryTest {
     }
 
     @Test
-    void validateSectionCodeDuplicate() {
+    void testValidateSectionCodeDuplicate() {
         when(jpaStreamer.stream(SectionCode.class)).thenReturn(Stream.of(mockSectionCode));
 
         boolean exists = sectionCodeRepository.validateSectionCodeDuplicate("T99");

@@ -31,11 +31,11 @@ public class ProductCodeRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    ProductCode mockProductCode = new ProductCode(1, "NA","Test", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+    ProductCode mockProductCode = new ProductCode(1, "NA","Test", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
     @Test
     void testGetProductCodes() {
-        List<ProductCode> mockProductCodes = List.of(new ProductCode(1, "NA","Test", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new ProductCode(2, "NA","Test1", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<ProductCode> mockProductCodes = List.of(new ProductCode(1, "NA","Test", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new ProductCode(2, "NA","Test1", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
 
         when(jpaStreamer.stream(ProductCode.class)).thenReturn(mockProductCodes.stream());
 

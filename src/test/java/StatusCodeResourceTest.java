@@ -68,7 +68,7 @@ public class StatusCodeResourceTest {
 
     @Test
     void testStatusCodeLifeCycle() {
-        StatusCode mockNewStatusCode = new StatusCode(0, "TESTSTAT", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+        StatusCode mockNewStatusCode = new StatusCode(0, "TESTSTAT", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
         int newStatusCodeId = given()
                 .contentType(ContentType.JSON)
@@ -80,7 +80,7 @@ public class StatusCodeResourceTest {
                 .extract()
                 .path("id");
 
-        StatusCode mockUpdateStatusCode = new StatusCode(newStatusCodeId, "TESTSTATS", mockNewStatusCode.getCreationDate(), mockNewStatusCode.getCreatedByUser(),OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+        StatusCode mockUpdateStatusCode = new StatusCode(newStatusCodeId, "TESTSTATS", mockNewStatusCode.getCreationDate(), mockNewStatusCode.getCreatedByUser(),OffsetDateTime.now(), "QKDEV");
 
         given()
                 .contentType(ContentType.JSON)
