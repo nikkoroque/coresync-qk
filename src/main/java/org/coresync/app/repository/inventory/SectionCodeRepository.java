@@ -65,6 +65,6 @@ public class SectionCodeRepository {
     }
 
     public boolean validateSectionCodeDuplicate(String sectionCd) {
-        return jpaStreamer.stream(SectionCode.class).anyMatch(SectionCode$.code.containsIgnoreCase(sectionCd));
+        return jpaStreamer.stream(SectionCode.class).anyMatch(SectionCode$.code.equalIgnoreCase(sectionCd));
     }
 }

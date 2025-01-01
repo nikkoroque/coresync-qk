@@ -62,6 +62,6 @@ public class TrackItemCodeRepository {
     }
 
     public boolean validateTrackItemCodeDuplicate(String code) {
-        return jpaStreamer.stream(TrackItemCode.class).anyMatch(TrackItemCode$.code.containsIgnoreCase(code));
+        return jpaStreamer.stream(TrackItemCode.class).anyMatch(TrackItemCode$.code.equalIgnoreCase(code));
     }
 }

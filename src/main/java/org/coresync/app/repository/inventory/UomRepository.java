@@ -68,7 +68,7 @@ public class UomRepository {
     };
 
     public boolean validateUomCodeDuplicate(String code) {
-        return jpaStreamer.stream(UnitOfMeasure.class).anyMatch(UnitOfMeasure$.code.containsIgnoreCase(code));
+        return jpaStreamer.stream(UnitOfMeasure.class).anyMatch(UnitOfMeasure$.code.equalIgnoreCase(code));
     };
 
     // TODO: Future release pagination

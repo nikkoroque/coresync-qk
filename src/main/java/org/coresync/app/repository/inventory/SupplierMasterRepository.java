@@ -64,6 +64,6 @@ public class SupplierMasterRepository {
     }
 
     public boolean validateSupplierDuplicate(String supCode) {
-        return jpaStreamer.stream(SupplierMaster.class).anyMatch(SupplierMaster$.supplierCode.containsIgnoreCase(supCode));
+        return jpaStreamer.stream(SupplierMaster.class).anyMatch(SupplierMaster$.supplierCode.equalIgnoreCase(supCode));
     }
 }

@@ -62,7 +62,7 @@ public class TaxJurisdictionTypeCodeRepository {
     }
 
     public boolean validateTaxJurisdictionTypeCodeDuplicate(String typeCode) {
-        return jpaStreamer.stream(TaxJurisdictionTypeCode.class).anyMatch(TaxJurisdictionTypeCode$.jurisdictionTypeCode.containsIgnoreCase(typeCode));
+        return jpaStreamer.stream(TaxJurisdictionTypeCode.class).anyMatch(TaxJurisdictionTypeCode$.jurisdictionTypeCode.equalIgnoreCase(typeCode));
     }
 
 }
