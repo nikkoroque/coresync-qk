@@ -1,7 +1,6 @@
 import com.speedment.jpastreamer.application.JPAStreamer;
 import jakarta.persistence.EntityManager;
 import org.coresync.app.model.SectionCode;
-import org.coresync.app.model.StatusCode;
 import org.coresync.app.repository.inventory.SectionCodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

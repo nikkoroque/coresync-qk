@@ -29,7 +29,7 @@ public class SectionCodeResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Get Section Code detail", description = "Fetches the details for a specific Satus Code.")
+    @Operation(summary = "Get Section Code detail", description = "Fetches the details for a specific Section Code.")
     public Response getSectionCodeDetail(@PathParam("id") int id) {
         try {
             Optional<SectionCode> sectionCd = sectionCodeRepository.getSectionCodeDetail(id);
