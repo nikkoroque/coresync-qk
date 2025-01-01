@@ -70,6 +70,6 @@ public class StatusCodeRepository {
     }
 
     public boolean validateStatusCodeDuplicate(String statusCd) {
-        return jpaStreamer.stream(StatusCode.class).anyMatch(StatusCode$.description.containsIgnoreCase(statusCd));
+        return jpaStreamer.stream(StatusCode.class).anyMatch(StatusCode$.description.equalIgnoreCase(statusCd));
     }
 }
