@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.SectionCode;
+import org.coresync.app.model.SectionCodeDTO;
 import org.coresync.app.repository.inventory.SectionCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,13 @@ public class SectionCodeResource {
     @Operation(summary = "Fetch all Section Codes", description = "Fetches all Section Codes.")
     public List<SectionCode> getSectionCodes() {
         return sectionCodeRepository.getSectionCodes();
+    }
+
+    @GET
+    @Path("/codes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public  List<SectionCodeDTO> getSectionCodeNames() {
+        return sectionCodeRepository.getSectionCodeNames();
     }
 
     @GET

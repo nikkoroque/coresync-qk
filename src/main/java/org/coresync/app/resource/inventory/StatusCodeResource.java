@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Path("/api/status-code")
-@Tag(name = "Status Code Resrouce", description = "Status Code api endpoints")
+@Tag(name = "Status Code Resource", description = "Status Code api endpoints")
 public class StatusCodeResource {
     @Inject
     StatusCodeRepository statusCodeRepository;
