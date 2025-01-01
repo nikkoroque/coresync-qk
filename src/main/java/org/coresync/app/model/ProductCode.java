@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "product_code", schema = "inventory_mgt", catalog = "coresync")
@@ -12,23 +12,34 @@ public class ProductCode {
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "section_code_id")
-    private int sectionCodeId;
+    @Column(name = "section_code")
+    private String sectionCode;
     @Basic
     @Column(name = "description")
     private String description;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public ProductCode() {}
+    public ProductCode(int id, String sectionCode, String description, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.sectionCode = sectionCode;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getId() {
         return id;
@@ -38,12 +49,12 @@ public class ProductCode {
         this.id = id;
     }
 
-    public int getSectionCodeId() {
-        return sectionCodeId;
+    public String getSectionCode() {
+        return sectionCode;
     }
 
-    public void setSectionCodeId(int sectionCodeId) {
-        this.sectionCodeId = sectionCodeId;
+    public void setSectionCode(String sectionCode) {
+        this.sectionCode = sectionCode;
     }
 
     public String getDescription() {
@@ -54,11 +65,11 @@ public class ProductCode {
         this.description = description;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -70,11 +81,11 @@ public class ProductCode {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
@@ -94,7 +105,7 @@ public class ProductCode {
         ProductCode that = (ProductCode) o;
 
         if (id != that.id) return false;
-        if (sectionCodeId != that.sectionCodeId) return false;
+        if (sectionCode != null ? !sectionCode.equals(that.sectionCode) : that.sectionCode != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
         if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
@@ -110,7 +121,7 @@ public class ProductCode {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + sectionCodeId;
+        result = 31 * result + (sectionCode != null ? sectionCode.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
