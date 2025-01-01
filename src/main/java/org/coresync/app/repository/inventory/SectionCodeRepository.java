@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.SectionCode;
 import org.coresync.app.model.SectionCode$;
+import org.coresync.app.model.SectionCodeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class SectionCodeRepository {
 
     public List<SectionCode> getSectionCodes() {
         return jpaStreamer.stream(SectionCode.class).collect(Collectors.toList());
+    }
+
+    public List<SectionCodeDTO> getSectionCodeNames() {
+        return jpaStreamer.stream(SectionCode.class).map(section -> new SectionCodeDTO(section.getId(), section.getCode(), section.getDescription())).collect(Collectors.toList());
     }
 
     public Optional<SectionCode> getSectionCodeDetail(int id) {
