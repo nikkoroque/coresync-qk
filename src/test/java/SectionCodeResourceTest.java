@@ -68,8 +68,8 @@ public class SectionCodeResourceTest {
 
     @Test
     void testSectionCodeLifeCycle() {
-        SectionCode mockSectionCode = new SectionCode(0, "T98", "TEST98", OffsetDateTime.parse("2024-12-24T05:11:20" +
-                ".070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+        SectionCode mockSectionCode = new SectionCode(0, "T98", "TEST98", OffsetDateTime.now(), "QKDEV",
+                OffsetDateTime.now(), "QKDEV");
 
         int newSectionCdId = given()
                 .contentType(ContentType.JSON)
@@ -83,7 +83,7 @@ public class SectionCodeResourceTest {
 
         SectionCode mockUpdateSectionCode = new SectionCode(newSectionCdId, "T99", "TEST99", mockSectionCode.getCreationDate(),
                 mockSectionCode.getCreatedByUser(),
-                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                OffsetDateTime.now(), "QKDEV");
 
         given()
                 .contentType(ContentType.JSON)

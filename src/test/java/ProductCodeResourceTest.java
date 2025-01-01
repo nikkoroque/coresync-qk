@@ -69,7 +69,7 @@ public class ProductCodeResourceTest {
     @Test
     void testProductCodeLifeCycle() {
         ProductCode mockProductCode = new ProductCode(0, "NA","Test",
-                OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
         int newProductCodeId = given()
                 .contentType(ContentType.JSON)
@@ -82,7 +82,7 @@ public class ProductCodeResourceTest {
                 .path("id");
 
         ProductCode mockUpdateProductCode = new ProductCode(newProductCodeId, "NA","Test1",
-                mockProductCode.getCreationDate(), mockProductCode.getCreatedByUser(),OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),
+                mockProductCode.getCreationDate(), mockProductCode.getCreatedByUser(),OffsetDateTime.now(),
                 "QKDEV");
 
         given()

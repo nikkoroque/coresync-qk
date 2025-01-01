@@ -31,7 +31,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testGetAllTaxJurisdictionTypeCodes() {
-        List<TaxJurisdictionTypeCode> mockTypeCodes = List.of(new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new TaxJurisdictionTypeCode(2, "CMS",  "CMS Jurisdiction Type",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"));
+        List<TaxJurisdictionTypeCode> mockTypeCodes = List.of(new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new TaxJurisdictionTypeCode(2, "CMS",  "CMS Jurisdiction Type",OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV"));
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(mockTypeCodes.stream());
         List<TaxJurisdictionTypeCode> result = taxJurisdictionTypeCodeRepository.getAllTaxJurisdictionTypeCodes();
@@ -43,7 +43,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testGetTaxJurisdictionTypeCodeDetail() {
-        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(Stream.of(mockTypeCode));
 
@@ -56,7 +56,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testAddTaxJurisdictionTypeCode() {
-        TaxJurisdictionTypeCode newTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode newTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         doNothing().when(entityManager).persist(newTypeCode);
 
@@ -69,7 +69,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testUpdateTaxJurisdictionTypeCode() {
-        TaxJurisdictionTypeCode existingMockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode existingMockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(Stream.of(existingMockTypeCode));
         when(entityManager.merge(existingMockTypeCode)).thenReturn(existingMockTypeCode);
@@ -83,7 +83,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testDeleteTaxJurisdictionTypeCode() {
-        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(Stream.of(mockTypeCode));
         when(entityManager.find(TaxJurisdictionTypeCode.class, 1)).thenReturn(mockTypeCode);
@@ -95,7 +95,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testTaxJurisdictionTypeCodeExists() {
-        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(Stream.of(mockTypeCode));
 
@@ -107,7 +107,7 @@ public class TaxJurisdictionTypeCodeRepositoryTest {
 
     @Test
     void testTaxJurisdictionTypeCodeDuplicate() {
-        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"),"QKDEV");
+        TaxJurisdictionTypeCode mockTypeCode = new TaxJurisdictionTypeCode(1, "CIGARETTES", "Cigarette Jurisdiction Type", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(),"QKDEV");
 
         when(jpaStreamer.stream(TaxJurisdictionTypeCode.class)).thenReturn(Stream.of(mockTypeCode));
 

@@ -36,7 +36,7 @@ public class UomRepositoryTest {
     @Test
     void testGetAllUomCodes() {
         List<UnitOfMeasure> mockCodes = List.of(
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"), new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV")
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"), new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV")
         );
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(mockCodes.stream());
@@ -51,7 +51,7 @@ public class UomRepositoryTest {
     @Test
     void testGetUomCodeDetail() {
         UnitOfMeasure mockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV");
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(Stream.of(mockCode));
 
@@ -65,7 +65,7 @@ public class UomRepositoryTest {
     @Test
     void testAddUomCode() {
         UnitOfMeasure newMockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV");
 
         doNothing().when(entityManager).persist(newMockCode);
 
@@ -79,7 +79,7 @@ public class UomRepositoryTest {
     @Test
     void testUpdateUomCode() {
         UnitOfMeasure existingMockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV");
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(Stream.of(existingMockCode));
         when(entityManager.merge(existingMockCode)).thenReturn(existingMockCode);
@@ -94,7 +94,7 @@ public class UomRepositoryTest {
     @Test
     void testDeleteUomCode() {
         UnitOfMeasure mockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV");
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(Stream.of(mockCode));
         when(entityManager.find(UnitOfMeasure.class, 1)).thenReturn(mockCode);
@@ -108,7 +108,7 @@ public class UomRepositoryTest {
     @Test
     void testUomCodeExists() {
         UnitOfMeasure mockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV");
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(Stream.of(mockCode));
 
@@ -121,7 +121,7 @@ public class UomRepositoryTest {
     @Test
     void testUomCodeDuplicate() {
         UnitOfMeasure mockCode =
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV");
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV");
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(Stream.of(mockCode));
 
@@ -135,8 +135,8 @@ public class UomRepositoryTest {
     @Test
     void testPaginatedUomCodes() {
         List<UnitOfMeasure> mockData = List.of(
-                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"),
-                new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV")
+                new UnitOfMeasure(1, "EA", "Each", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV"),
+                new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV")
         );
 
         Supplier<Stream<UnitOfMeasure>> mockStreamSupplier = () -> mockData.stream();
@@ -154,8 +154,8 @@ public class UomRepositoryTest {
     @Test
     void testFilterUomCodes() {
         List<UnitOfMeasure> mockData = List.of(
-                new UnitOfMeasure(1, "EA", "Each",OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV"),
-                new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV", OffsetDateTime.parse("2024-12-24T05:11:20.070Z"), "QKDEV")
+                new UnitOfMeasure(1, "EA", "Each",OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV"),
+                new UnitOfMeasure(2, "BAG", "Bag", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV")
         );
 
         when(jpaStreamer.stream(UnitOfMeasure.class)).thenReturn(mockData.stream());
