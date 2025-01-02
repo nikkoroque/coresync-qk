@@ -33,12 +33,12 @@ public class ShelfLifeTypeCodeRepositoryTest {
     ShelfLifeTypeCode mockShelfLifeTypeCode = new ShelfLifeTypeCode(1, "T1", "Test", OffsetDateTime.now(), "QKDEV",
             OffsetDateTime.now(), "QKDEV");
 
+    List<ShelfLifeTypeCode> mockShelfLifeTypeCodes = List.of(new ShelfLifeTypeCode(1, "T1", "Test",
+                    OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"),
+            new ShelfLifeTypeCode(2, "T2", "Test", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
+
     @Test
     void testGetShelfLifeTypeCodes() {
-        List<ShelfLifeTypeCode> mockShelfLifeTypeCodes = List.of(new ShelfLifeTypeCode(1, "T1", "Test",
-                OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"),
-                new ShelfLifeTypeCode(2, "T2", "Test", OffsetDateTime.now(), "QKDEV",OffsetDateTime.now(), "QKDEV"));
-
         when(jpaStreamer.stream(ShelfLifeTypeCode.class)).thenReturn(mockShelfLifeTypeCodes.stream());
         List<ShelfLifeTypeCode> result = shelfLifeTypeCodeRepository.getShelfLifeTypeCodes();
 
@@ -49,11 +49,6 @@ public class ShelfLifeTypeCodeRepositoryTest {
 
     @Test
     void testGetShelfLifeTypeCodeMetaData() {
-        List<ShelfLifeTypeCode> mockShelfLifeTypeCodes = List.of(
-                new ShelfLifeTypeCode(1, "T1", "Test", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV"),
-                new ShelfLifeTypeCode(2, "T2", "Test", OffsetDateTime.now(), "QKDEV", OffsetDateTime.now(), "QKDEV")
-        );
-
         when(jpaStreamer.stream(ShelfLifeTypeCode.class)).thenReturn(mockShelfLifeTypeCodes.stream());
 
         List<ShelfLifeTypeCodeDTO> result = shelfLifeTypeCodeRepository.getShelfLifeTypeCodeNames();
