@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.TaxJurisdictionTypeCode;
 import org.coresync.app.model.TaxJurisdictionTypeCode$;
+import org.coresync.app.model.TaxJurisdictionTypeCodeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class TaxJurisdictionTypeCodeRepository {
 
     public List<TaxJurisdictionTypeCode> getAllTaxJurisdictionTypeCodes() {
         return jpaStreamer.stream(TaxJurisdictionTypeCode.class).collect(Collectors.toList());
+    }
+
+    public List<TaxJurisdictionTypeCodeDTO> getTaxJurisdictionTypeCodeDTO() {
+        return jpaStreamer.stream(TaxJurisdictionTypeCode.class).map(tax -> new TaxJurisdictionTypeCodeDTO(tax.getId(), tax.getJurisdictionTypeCode())).collect(Collectors.toList());
     }
 
     public Optional<TaxJurisdictionTypeCode> getTaxJurisdictionTypeCodeDetail(int id) {

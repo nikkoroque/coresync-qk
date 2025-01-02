@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.TaxJurisdictionTypeCode;
+import org.coresync.app.model.TaxJurisdictionTypeCodeDTO;
 import org.coresync.app.repository.inventory.TaxJurisdictionTypeCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class TaxJurisdictionTypeCodeResource {
     @Operation(summary = "Fetch all Tax Jurisdiction Type Codes", description = "Fetches all Tax Jurisdiction Type Codes in the database.")
     public List<TaxJurisdictionTypeCode> getAllTaxJurisdictionTypeCodes() {
         return taxJurisdictionTypeCodeRepository.getAllTaxJurisdictionTypeCodes();
+    }
+
+    @GET
+    @Path("/type-codes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all code names for Metadata.", description = "Fetches all code names for metadata.")
+    public List<TaxJurisdictionTypeCodeDTO> getTaxJurisdictionTypeCodesMetaData() {
+        return taxJurisdictionTypeCodeRepository.getTaxJurisdictionTypeCodeDTO();
     }
 
     @GET

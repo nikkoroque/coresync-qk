@@ -1,46 +1,56 @@
 package org.coresync.app.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "jurisdiction_master", schema = "inventory_mgt", catalog = "coresync")
 public class JurisdictionMaster {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
-    @Column(name = "jurisdiction_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ColumnDefault("nextval('inventory_mgt.jurisdiction_master_id_seq'")
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Column(name = "jurisdiction_code", nullable = false, length = 10)
     private String jurisdictionCode;
-    @Basic
-    @Column(name = "jurisdiction_name")
+
+    @Column(name = "jurisdiction_name", nullable = false, length = 100)
     private String jurisdictionName;
-    @Basic
-    @Column(name = "jurisdiction_type_id")
-    private int jurisdictionTypeId;
-    @Basic
-    @Column(name = "description")
-    private String description;
-    @Basic
-    @Column(name = "creation_date")
-    private Timestamp creationDate;
-    @Basic
-    @Column(name = "created_by_user")
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "jurisdiction_tax_type_code", nullable = false, referencedColumnName = "jurisdiction_type_code")
+    private TaxJurisdictionTypeCode jurisdictionTaxTypeCode;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "jurisdiction_class_type_code", nullable = false, referencedColumnName = "class_type_code")
+    private JurisdictionClassTypeCode jurisdictionClassTypeCode;
+
+    @Column(name = "creation_date", nullable = false)
+    private Instant creationDate;
+
+    @ColumnDefault("SYSTEM")
+    @Column(name = "created_by_user", nullable = false, length = 10)
     private String createdByUser;
-    @Basic
-    @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
-    @Basic
-    @Column(name = "last_updated_by_user")
+
+    @Column(name = "last_update_date", nullable = false)
+    private Instant lastUpdateDate;
+
+    @ColumnDefault("SYSTEM")
+    @Column(name = "last_updated_by_user", nullable = false, length = 10)
     private String lastUpdatedByUser;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,27 +70,27 @@ public class JurisdictionMaster {
         this.jurisdictionName = jurisdictionName;
     }
 
-    public int getJurisdictionTypeId() {
-        return jurisdictionTypeId;
+    public TaxJurisdictionTypeCode getJurisdictionTaxTypeCode() {
+        return jurisdictionTaxTypeCode;
     }
 
-    public void setJurisdictionTypeId(int jurisdictionTypeId) {
-        this.jurisdictionTypeId = jurisdictionTypeId;
+    public void setJurisdictionTaxTypeCode(TaxJurisdictionTypeCode jurisdictionTaxTypeCode) {
+        this.jurisdictionTaxTypeCode = jurisdictionTaxTypeCode;
     }
 
-    public String getDescription() {
-        return description;
+    public JurisdictionClassTypeCode getJurisdictionClassTypeCode() {
+        return jurisdictionClassTypeCode;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setJurisdictionClassTypeCode(JurisdictionClassTypeCode jurisdictionClassTypeCode) {
+        this.jurisdictionClassTypeCode = jurisdictionClassTypeCode;
     }
 
-    public Timestamp getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -92,11 +102,11 @@ public class JurisdictionMaster {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public Instant getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(Instant lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
@@ -108,42 +118,4 @@ public class JurisdictionMaster {
         this.lastUpdatedByUser = lastUpdatedByUser;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        JurisdictionMaster that = (JurisdictionMaster) o;
-
-        if (id != that.id) return false;
-        if (jurisdictionTypeId != that.jurisdictionTypeId) return false;
-        if (jurisdictionCode != null ? !jurisdictionCode.equals(that.jurisdictionCode) : that.jurisdictionCode != null)
-            return false;
-        if (jurisdictionName != null ? !jurisdictionName.equals(that.jurisdictionName) : that.jurisdictionName != null)
-            return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
-        if (createdByUser != null ? !createdByUser.equals(that.createdByUser) : that.createdByUser != null)
-            return false;
-        if (lastUpdateDate != null ? !lastUpdateDate.equals(that.lastUpdateDate) : that.lastUpdateDate != null)
-            return false;
-        if (lastUpdatedByUser != null ? !lastUpdatedByUser.equals(that.lastUpdatedByUser) : that.lastUpdatedByUser != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (jurisdictionCode != null ? jurisdictionCode.hashCode() : 0);
-        result = 31 * result + (jurisdictionName != null ? jurisdictionName.hashCode() : 0);
-        result = 31 * result + jurisdictionTypeId;
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
-        result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
-        result = 31 * result + (lastUpdatedByUser != null ? lastUpdatedByUser.hashCode() : 0);
-        return result;
-    }
 }
