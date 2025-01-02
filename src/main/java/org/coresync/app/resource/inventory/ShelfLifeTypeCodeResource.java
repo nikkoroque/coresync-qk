@@ -1,13 +1,12 @@
-package org.coresync.app.repository.inventory;
+package org.coresync.app.resource.inventory;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.coresync.app.model.ProductCode;
-import org.coresync.app.model.SectionCodeDTO;
 import org.coresync.app.model.ShelfLifeTypeCode;
 import org.coresync.app.model.ShelfLifeTypeCodeDTO;
+import org.coresync.app.repository.inventory.ShelfLifeTypeCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
