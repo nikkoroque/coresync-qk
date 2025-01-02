@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "manufacturer_master", schema = "inventory_mgt", catalog = "coresync")
@@ -28,16 +28,20 @@ public class ManufacturerMaster {
     private String email;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public ManufacturerMaster() {
+
+    }
 
     public int getId() {
         return id;
@@ -87,11 +91,11 @@ public class ManufacturerMaster {
         this.email = email;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -103,11 +107,11 @@ public class ManufacturerMaster {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
