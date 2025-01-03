@@ -2,19 +2,16 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "jurisdiction_master", schema = "inventory_mgt", catalog = "coresync")
 public class JurisdictionMaster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ColumnDefault("nextval('inventory_mgt.jurisdiction_master_id_seq'")
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "jurisdiction_code", nullable = false, length = 10)
     private String jurisdictionCode;
@@ -22,29 +19,41 @@ public class JurisdictionMaster {
     @Column(name = "jurisdiction_name", nullable = false, length = 100)
     private String jurisdictionName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "jurisdiction_tax_type_code", nullable = false, referencedColumnName = "jurisdiction_type_code")
-    private TaxJurisdictionTypeCode jurisdictionTaxTypeCode;
+    @Column(name = "jurisdiction_tax_type_code", nullable = false)
+    private String jurisdictionTaxTypeCode;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "jurisdiction_class_type_code", nullable = false, referencedColumnName = "class_type_code")
-    private JurisdictionClassTypeCode jurisdictionClassTypeCode;
+    @Column(name = "jurisdiction_class_type_code", nullable = false)
+    private String jurisdictionClassTypeCode;
 
     @Column(name = "creation_date", nullable = false)
-    private Instant creationDate;
+    private OffsetDateTime creationDate;
 
     @ColumnDefault("SYSTEM")
     @Column(name = "created_by_user", nullable = false, length = 10)
     private String createdByUser;
 
     @Column(name = "last_update_date", nullable = false)
-    private Instant lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
 
     @ColumnDefault("SYSTEM")
     @Column(name = "last_updated_by_user", nullable = false, length = 10)
     private String lastUpdatedByUser;
+
+    public JurisdictionMaster(Integer id, String jurisdictionCode, String jurisdictionName, String jurisdictionTaxTypeCode, String jurisdictionClassTypeCode, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.jurisdictionCode = jurisdictionCode;
+        this.jurisdictionName = jurisdictionName;
+        this.jurisdictionTaxTypeCode = jurisdictionTaxTypeCode;
+        this.jurisdictionClassTypeCode = jurisdictionClassTypeCode;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
+
+    public JurisdictionMaster() {
+
+    }
 
     public Integer getId() {
         return id;
@@ -70,27 +79,27 @@ public class JurisdictionMaster {
         this.jurisdictionName = jurisdictionName;
     }
 
-    public TaxJurisdictionTypeCode getJurisdictionTaxTypeCode() {
+    public String getJurisdictionTaxTypeCode() {
         return jurisdictionTaxTypeCode;
     }
 
-    public void setJurisdictionTaxTypeCode(TaxJurisdictionTypeCode jurisdictionTaxTypeCode) {
+    public void setJurisdictionTaxTypeCode(String jurisdictionTaxTypeCode) {
         this.jurisdictionTaxTypeCode = jurisdictionTaxTypeCode;
     }
 
-    public JurisdictionClassTypeCode getJurisdictionClassTypeCode() {
+    public String getJurisdictionClassTypeCode() {
         return jurisdictionClassTypeCode;
     }
 
-    public void setJurisdictionClassTypeCode(JurisdictionClassTypeCode jurisdictionClassTypeCode) {
+    public void setJurisdictionClassTypeCode(String jurisdictionClassTypeCode) {
         this.jurisdictionClassTypeCode = jurisdictionClassTypeCode;
     }
 
-    public Instant getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Instant creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -102,11 +111,11 @@ public class JurisdictionMaster {
         this.createdByUser = createdByUser;
     }
 
-    public Instant getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Instant lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
