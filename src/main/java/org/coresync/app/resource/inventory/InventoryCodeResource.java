@@ -104,11 +104,12 @@ public class InventoryCodeResource {
         try {
             // Check if the inventory code exists
             inventoryCodeRepository.getInventoryCodeDetail(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Inventory Code does not exist"));
+                    .orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Inventory Code does not exists " +
+                            "\"}"));
 
             // Perform the delete operation
             inventoryCodeRepository.deleteInventoryCode(id);
-            return Response.ok().entity("Inventory Code deleted successfully.").build();
+            return Response.ok().entity("{\"message\":\"Inventory Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

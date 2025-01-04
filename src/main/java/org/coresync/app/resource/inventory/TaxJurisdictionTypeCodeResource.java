@@ -104,8 +104,10 @@ public class TaxJurisdictionTypeCodeResource {
     @Operation(summary = "Deletes a Tax Jurisdiction Type Code", description = "Deletes the tax jurisdiction type code provided in the parameter.")
     public Response deleteTaxJurisdictionTypeCode(@PathParam("id") int id) {
         try {
+            taxJurisdictionTypeCodeRepository.getTaxJurisdictionTypeCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Tax Jurisdiction Type Code does not exists.\"}"));
+
             taxJurisdictionTypeCodeRepository.deleteTaxJurisdictionTypeCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Tax Jurisdiction Type Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

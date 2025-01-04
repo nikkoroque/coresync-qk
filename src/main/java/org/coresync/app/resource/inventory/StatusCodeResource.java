@@ -96,8 +96,10 @@ public class StatusCodeResource {
     @Operation(summary = "Deletes a Status Code", description = "Deletes the Status Code provided in the parameter.")
     public Response deleteStatusCode(@PathParam("id") int id) {
         try {
+            statusCodeRepository.getStatusCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Status Code does not exists.\"}"));
+
             statusCodeRepository.deleteStatusCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Status Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

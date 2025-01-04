@@ -104,8 +104,10 @@ public class SectionCodeResource {
     @Operation(summary = "Deletes a Section Code", description = "Deletes the Section Code provided in the parameter.")
     public Response deleteSectionCode(@PathParam("id") int id) {
         try {
+            sectionCodeRepository.getSectionCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Section Code does not exists.\"}"));
+
             sectionCodeRepository.deleteSectionCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Section Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

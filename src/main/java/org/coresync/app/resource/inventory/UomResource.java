@@ -118,8 +118,10 @@ public class UomResource {
     @Operation(summary = "Deletes a Unit of Measurement", description = "Deletes the unit code provided in the parameter submitted.")
     public Response deleteUomCode(@PathParam("id") int id) {
         try {
+            uomRepository.getUomCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"UOM Code deleted successfully.\"}"));
+
             uomRepository.deleteUomCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"UOM Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())
