@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "inventory_class", schema = "inventory_mgt", catalog = "coresync")
@@ -19,16 +19,28 @@ public class InventoryClass {
     private String description;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public InventoryClass(){}
+
+    public InventoryClass(int id, int inventoryCodeId, String description, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.inventoryCodeId = inventoryCodeId;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getId() {
         return id;
@@ -54,11 +66,11 @@ public class InventoryClass {
         this.description = description;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -70,11 +82,11 @@ public class InventoryClass {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

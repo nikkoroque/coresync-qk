@@ -65,7 +65,7 @@ public class InventoryCodeRepository {
     public void deleteInventoryCode(int id) {
         InventoryCode invCode = entityManager.find(InventoryCode.class, id);
 
-        if (!validateInventoryCodeExists(invCode.getId())) {
+        if (invCode == null || !validateInventoryCodeExists(invCode.getId())) {
             throw new IllegalArgumentException("Inventory Code ID" + id + " does not exist");
         }
 
