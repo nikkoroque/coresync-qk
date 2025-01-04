@@ -2,7 +2,6 @@ import com.speedment.jpastreamer.application.JPAStreamer;
 import jakarta.persistence.EntityManager;
 import org.coresync.app.model.JurisdictionClassTypeCode;
 import org.coresync.app.model.JurisdictionClassTypeCodeDTO;
-import org.coresync.app.model.ShelfLifeTypeCode;
 import org.coresync.app.repository.inventory.JurisdictionClassTypeCodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
