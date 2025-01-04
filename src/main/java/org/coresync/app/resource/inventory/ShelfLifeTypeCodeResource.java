@@ -106,8 +106,10 @@ public class ShelfLifeTypeCodeResource {
     @Operation(summary = "Deletes a Shelf Life Type Code", description = "Deletes the Shelf Life Type Code provided in the parameter.")
     public Response deleteShelfLifeTypeCode(@PathParam("id") int id) {
         try {
+            shelfLifeTypeCodeRepository.getShelfLifeTypeCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Shelf Life Type Code does not exists.\"}"));
+
             shelfLifeTypeCodeRepository.deleteShelfLifeTypeCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Shelf Life Type Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

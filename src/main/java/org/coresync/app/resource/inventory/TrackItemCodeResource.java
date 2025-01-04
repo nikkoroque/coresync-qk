@@ -93,8 +93,10 @@ public class TrackItemCodeResource {
     @Operation(summary = "Deletes a Track Item Code", description = "Delete the track item code provided in the parameter.")
     public Response deleteTrackItemCode(@PathParam("id") int id) {
         try {
+            trackItemCodeRepository.getTrackItemCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Track Item Code does not exists.\"}"));
+
             trackItemCodeRepository.deleteTrackItemCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Track Item Code deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

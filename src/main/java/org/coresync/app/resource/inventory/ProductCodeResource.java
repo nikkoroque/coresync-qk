@@ -96,8 +96,9 @@ public class ProductCodeResource {
     @Operation(summary = "Deletes a Product Code", description = "Deletes the Product Code provided in the parameter.")
     public Response deleteProductCode(@PathParam("id") int id) {
         try {
+            productCodeRepository.getProductCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Product Code does not exists. \"}"));
             productCodeRepository.deleteProductCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Product Code deleted successfully. \"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

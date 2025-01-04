@@ -108,11 +108,11 @@ public class JurisdictionMasterResource {
         try {
             // Check if the jurisdiction exists
             jurisdictionMasterRepository.getJuridisctionDetail(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Jurisdiction does not exist"));
+                    .orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Jurisdiction does not exists\"}"));
 
             // Perform the delete operation
             jurisdictionMasterRepository.deleteJurisdiction(id);
-            return Response.ok().entity("Jurisdiction deleted successfully.").build();
+            return Response.ok().entity("{\"message\":\"Jurisdiction deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

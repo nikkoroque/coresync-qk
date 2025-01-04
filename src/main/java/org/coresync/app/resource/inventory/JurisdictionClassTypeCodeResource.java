@@ -105,8 +105,11 @@ public class JurisdictionClassTypeCodeResource {
     @Operation(summary = "Deletes a Jurisdiction Class Type Code", description = "Deletes the Jurisdiction Class Type Code provided in the parameter.")
     public Response deleteJurisdictionClassTypeCode(@PathParam("id") int id) {
         try {
+
+            jurisdictionClassTypeCodeRepository.getJurisdictionClassTypeCodeDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Jurisdiction Class Type Code does not exists \"}"));
+
             jurisdictionClassTypeCodeRepository.deleteJurisdictionClassTypeCode(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Jurisdiction Class Type Code deleted successfully. \"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())

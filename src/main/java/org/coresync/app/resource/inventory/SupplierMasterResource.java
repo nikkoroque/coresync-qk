@@ -92,8 +92,10 @@ public class SupplierMasterResource {
     @Operation(summary = "Deletes a Supplier", description = "Delete the track item code provided in the parameter.")
     public Response deleteSupplier(@PathParam("id") int id) {
         try {
+            supplierMasterRepository.getSupplierDetail(id).orElseThrow(() -> new IllegalArgumentException("{\"message\":\"Supplier deleted successfully.\"}"));
+
             supplierMasterRepository.deleteSupplier(id);
-            return Response.ok().build();
+            return Response.ok().entity("{\"message\":\"Supplier deleted successfully.\"}").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())
