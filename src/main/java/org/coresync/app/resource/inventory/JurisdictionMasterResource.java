@@ -106,8 +106,13 @@ public class JurisdictionMasterResource {
     @Operation(summary = "Delete Jurisdiction.", description = "Deletes a Jurisdiction")
     public Response deleteJurisdiction(@PathParam("id") int id) {
         try {
+            // Check if the jurisdiction exists
+            jurisdictionMasterRepository.getJuridisctionDetail(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Jurisdiction does not exist"));
+
+            // Perform the delete operation
             jurisdictionMasterRepository.deleteJurisdiction(id);
-            return Response.ok().build();
+            return Response.ok().entity("Jurisdiction deleted successfully.").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())
@@ -118,6 +123,7 @@ public class JurisdictionMasterResource {
                     .build();
         }
     }
+
 
     @GET
     @Path("/validate/id/{id}")
