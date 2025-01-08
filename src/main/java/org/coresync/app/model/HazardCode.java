@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "hazard_code", schema = "inventory_mgt", catalog = "coresync")
@@ -28,16 +28,31 @@ public class HazardCode {
     private String govtMaterialCode;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_update_date")
-    private Timestamp lastUpdateDate;
+    private OffsetDateTime lastUpdateDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public HazardCode() {}
+
+    public HazardCode(int id, int hazardClassId, String description1, String description2, String materialPackageCode, String govtMaterialCode, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser) {
+        this.id = id;
+        this.hazardClassId = hazardClassId;
+        this.description1 = description1;
+        this.description2 = description2;
+        this.materialPackageCode = materialPackageCode;
+        this.govtMaterialCode = govtMaterialCode;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getId() {
         return id;
@@ -87,11 +102,11 @@ public class HazardCode {
         this.govtMaterialCode = govtMaterialCode;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -103,11 +118,11 @@ public class HazardCode {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdateDate() {
+    public OffsetDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+    public void setLastUpdateDate(OffsetDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
