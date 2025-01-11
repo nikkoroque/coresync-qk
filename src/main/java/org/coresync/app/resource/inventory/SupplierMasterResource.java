@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.SupplierMaster;
+import org.coresync.app.model.SupplierMasterDTO;
 import org.coresync.app.repository.inventory.SupplierMasterRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class SupplierMasterResource {
     @Operation(summary = "Fetch all Suppliers", description = "Fetches all suppliers.")
     public List<SupplierMaster> getAllSuppliers() {
         return supplierMasterRepository.getAllSuppliers();
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all Supplier Metadata", description = "Fetches metadata for suppliers.")
+    public List<SupplierMasterDTO> getAllSupplierMetadata() {
+        return supplierMasterRepository.getAllSupplierDTO();
     }
 
     @GET

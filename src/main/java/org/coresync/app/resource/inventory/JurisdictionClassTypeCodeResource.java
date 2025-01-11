@@ -28,7 +28,7 @@ public class JurisdictionClassTypeCodeResource {
     }
 
     @GET
-    @Path("/codes")
+    @Path("/meta-data")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Fetch all code names for Metadata.", description = "Fetches all code names for metadata.")
     public  List<JurisdictionClassTypeCodeDTO> getJurisdictionClassTypeCodesMetadata() {

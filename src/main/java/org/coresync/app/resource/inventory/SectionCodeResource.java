@@ -28,10 +28,10 @@ public class SectionCodeResource {
     }
 
     @GET
-    @Path("/codes")
+    @Path("/meta-data")
     @Produces(MediaType.APPLICATION_JSON)
     public  List<SectionCodeDTO> getSectionCodeNames() {
-        return sectionCodeRepository.getSectionCodeNames();
+        return sectionCodeRepository.getSectionCodeDTO();
     }
 
     @GET

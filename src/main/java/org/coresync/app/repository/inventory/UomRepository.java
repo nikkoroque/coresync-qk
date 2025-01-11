@@ -5,8 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.coresync.app.model.PaginatedResult;
-import org.coresync.app.model.UnitOfMeasure;
+import org.coresync.app.model.*;
 import org.coresync.app.model.UnitOfMeasure$;
 
 import java.time.OffsetDateTime;
@@ -27,6 +26,10 @@ public class UomRepository {
 
     public List<UnitOfMeasure> getAllUomCodes() {
         return jpaStreamer.stream(UnitOfMeasure.class).collect(Collectors.toList());
+    }
+
+    public List<UnitOfMeasureDTO> getUomCodesDTO() {
+        return jpaStreamer.stream(UnitOfMeasure.class).map(uom -> new UnitOfMeasureDTO(uom.getId(), uom.getCode(), uom.getDescription())).collect(Collectors.toList());
     }
 
     public Optional<UnitOfMeasure> getUomCodeDetail(int id) {
@@ -57,7 +60,7 @@ public class UomRepository {
     public void deleteUomCode(int id) {
         UnitOfMeasure uomCode = entityManager.find(UnitOfMeasure.class, id);
         // Validation
-        if (!validateUomCodeExists(id)) {
+        if (uomCode == null || !validateUomCodeExists(id)) {
             throw new IllegalArgumentException("UOM Code with ID " + id + " does not exist.");
         }
         entityManager.remove(uomCode);

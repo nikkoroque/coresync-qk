@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.SupplierMaster;
 import org.coresync.app.model.SupplierMaster$;
+import org.coresync.app.model.SupplierMasterDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class SupplierMasterRepository {
 
     public List<SupplierMaster> getAllSuppliers() {
         return jpaStreamer.stream(SupplierMaster.class).collect(Collectors.toList());
+    }
+
+    public List<SupplierMasterDTO> getAllSupplierDTO() {
+        return jpaStreamer.stream(SupplierMaster.class).map(supplier -> new SupplierMasterDTO(supplier.getId(), supplier.getSupplierCode(), supplier.getSupplierName())).collect(Collectors.toList());
     }
 
     public Optional<SupplierMaster> getSupplierDetail(int id) {

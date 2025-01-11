@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.ProductCode;
 import org.coresync.app.model.ProductCode$;
+import org.coresync.app.model.ProductCodeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class ProductCodeRepository {
 
     public List<ProductCode> getProductCodes() {
         return jpaStreamer.stream(ProductCode.class).collect(Collectors.toList());
+    }
+
+    public List<ProductCodeDTO> getProductCodesDTO() {
+        return jpaStreamer.stream(ProductCode.class).map(prodCode -> new ProductCodeDTO(prodCode.getId(), prodCode.getDescription())).collect(Collectors.toList());
     }
 
     public Optional<ProductCode> getProductCodeDetail(int id) {

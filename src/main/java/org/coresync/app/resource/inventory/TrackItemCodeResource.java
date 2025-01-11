@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.TrackItemCode;
+import org.coresync.app.model.TrackItemCodeDTO;
 import org.coresync.app.repository.inventory.TrackItemCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class TrackItemCodeResource {
     @Operation(summary = "Fetch all Track Item Codes", description = "Fetches all codes in the database.")
     public List<TrackItemCode> getAllTrackItemCodes() {
         return trackItemCodeRepository.getAllTrackItemCodes();
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all Track Item Code Metadata", description = "Fetches metadata for track item code.")
+    public List<TrackItemCodeDTO> getAllTrackItemCodeMetadata() {
+        return trackItemCodeRepository.getAllTrackItemCodeDTO();
     }
 
     @GET

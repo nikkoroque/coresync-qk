@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.ProductCode;
+import org.coresync.app.model.ProductCodeDTO;
 import org.coresync.app.repository.inventory.ProductCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class ProductCodeResource {
     @Operation(summary = "Fetch all Product Codes", description = "Fetches all Product Codes.")
     public List<ProductCode> getProductCodes() {
         return productCodeRepository.getProductCodes();
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all Product Code Metadata", description = "Fetches metadata for product code.")
+    public List<ProductCodeDTO> getProductCodeMetadata() {
+        return productCodeRepository.getProductCodesDTO();
     }
 
     @GET

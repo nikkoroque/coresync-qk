@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.StatusCode;
+import org.coresync.app.model.StatusCodeDTO;
 import org.coresync.app.repository.inventory.StatusCodeRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class StatusCodeResource {
     @Operation(summary = "Fetch all Status Codes", description = "Fetches all Status Codes.")
     public List<StatusCode> getAllStatusCodes() {
         return statusCodeRepository.getAllStatusCodes();
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all Status Code Metadata", description = "Fetches metadata for status code.")
+    public List<StatusCodeDTO> getStatusCodeMetadata() {
+        return statusCodeRepository.getAllStatusCodeDTO();
     }
 
     @GET
