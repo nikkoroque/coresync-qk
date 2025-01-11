@@ -44,7 +44,7 @@ public class HazardCodeResourceTest {
                 .then()
                 .statusCode(200)
                 .body("id", is(1))
-                .body("description1", is("ALCOHOL"));
+                .body("description1", is("Alcohol"));
     }
 
     @Test
