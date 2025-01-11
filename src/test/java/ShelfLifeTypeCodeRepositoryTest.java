@@ -51,7 +51,7 @@ public class ShelfLifeTypeCodeRepositoryTest {
     void testGetShelfLifeTypeCodeMetaData() {
         when(jpaStreamer.stream(ShelfLifeTypeCode.class)).thenReturn(mockShelfLifeTypeCodes.stream());
 
-        List<ShelfLifeTypeCodeDTO> result = shelfLifeTypeCodeRepository.getShelfLifeTypeCodeNames();
+        List<ShelfLifeTypeCodeDTO> result = shelfLifeTypeCodeRepository.getShelfLifeTypeCodeDTO();
 
         assertNotNull(result, "Result should not be null");
         assertEquals(2, result.size(), "Result size should be 2");

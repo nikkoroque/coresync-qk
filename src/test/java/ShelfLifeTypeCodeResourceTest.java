@@ -38,11 +38,11 @@ public class ShelfLifeTypeCodeResourceTest {
 
     @Test
     void testGetShelfLifeTypeCodeNames() {
-        List<ShelfLifeTypeCodeDTO> shlfLfTypCdNames = shelfLifeTypeCodeRepository.getShelfLifeTypeCodeNames();
+        List<ShelfLifeTypeCodeDTO> shlfLfTypCdNames = shelfLifeTypeCodeRepository.getShelfLifeTypeCodeDTO();
 
         given()
                 .when()
-                .get("/codes")
+                .get("/meta-data")
                 .then()
                 .statusCode(200)
                 .body("size()", is(shlfLfTypCdNames.size()));

@@ -42,7 +42,7 @@ public class JurisdictionClassTypeCodeResourceTest {
 
         given()
                 .when()
-                .get("/codes")
+                .get("/meta-data")
                 .then()
                 .statusCode(200)
                 .body("size()", is(jurisdictionClassTypeCodeDTOList.size()));
