@@ -24,7 +24,7 @@ public class ShelfLifeTypeCodeRepository {
         return jpaStreamer.stream(ShelfLifeTypeCode.class).collect(Collectors.toList());
     }
 
-    public List<ShelfLifeTypeCodeDTO> getShelfLifeTypeCodeNames() {
+    public List<ShelfLifeTypeCodeDTO> getShelfLifeTypeCodeDTO() {
         return jpaStreamer.stream(ShelfLifeTypeCode.class).map(name -> new ShelfLifeTypeCodeDTO(name.getId(), name.getCode(), name.getDescription())).collect(Collectors.toList());
     }
 

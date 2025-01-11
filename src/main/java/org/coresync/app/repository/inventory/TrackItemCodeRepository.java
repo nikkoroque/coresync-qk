@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.TrackItemCode;
 import org.coresync.app.model.TrackItemCode$;
+import org.coresync.app.model.TrackItemCodeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,10 @@ public class TrackItemCodeRepository {
 
     public List<TrackItemCode> getAllTrackItemCodes() {
         return jpaStreamer.stream(TrackItemCode.class).collect(Collectors.toList());
+    }
+
+    public List<TrackItemCodeDTO> getAllTrackItemCodeDTO() {
+        return jpaStreamer.stream(TrackItemCode.class).map(track -> new TrackItemCodeDTO(track.getId(), track.getCode(), track.getDescription())).collect(Collectors.toList());
     }
 
     public Optional<TrackItemCode> getTrackItemCodeDetail(int id) {
@@ -51,7 +56,7 @@ public class TrackItemCodeRepository {
     public void deleteTrackItemCode(int id) {
         TrackItemCode itemCodeId = entityManager.find(TrackItemCode.class, id);
         // Validate
-        if (!validateTrackItemCodeExists(id)) {
+        if (itemCodeId == null || !validateTrackItemCodeExists(id)) {
             throw new IllegalArgumentException("Track Item Code with ID " + id + " does not exist.");
         }
         entityManager.remove(itemCodeId);

@@ -24,7 +24,7 @@ public class SectionCodeRepository {
         return jpaStreamer.stream(SectionCode.class).collect(Collectors.toList());
     }
 
-    public List<SectionCodeDTO> getSectionCodeNames() {
+    public List<SectionCodeDTO> getSectionCodeDTO() {
         return jpaStreamer.stream(SectionCode.class).map(section -> new SectionCodeDTO(section.getId(), section.getCode(), section.getDescription())).collect(Collectors.toList());
     }
 

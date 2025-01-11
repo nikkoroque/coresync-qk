@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.coresync.app.model.PaginatedResult;
 import org.coresync.app.model.UnitOfMeasure;
+import org.coresync.app.model.UnitOfMeasureDTO;
 import org.coresync.app.repository.inventory.UomRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -34,6 +35,14 @@ public class UomResource {
     @Operation(summary = "Fetch all UOM Codes", description = "Fetches all UOM codes in the database.")
     public List<UnitOfMeasure> getAllUomCodes() {
         return uomRepository.getAllUomCodes();
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Fetch all UOM Code Metadata", description = "Fetches metadata for uom codes.")
+    public List<UnitOfMeasureDTO> getUomCodeMetadata() {
+        return uomRepository.getUomCodesDTO();
     }
 
     /**

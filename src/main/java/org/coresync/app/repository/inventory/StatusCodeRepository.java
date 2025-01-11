@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.coresync.app.model.StatusCode;
 import org.coresync.app.model.StatusCode$;
+import org.coresync.app.model.StatusCodeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,9 +24,9 @@ public class StatusCodeRepository {
         return jpaStreamer.stream(StatusCode.class).collect(Collectors.toList());
     }
 
-    public List<String> getAllStatusCodeNames() {
+    public List<StatusCodeDTO> getAllStatusCodeDTO() {
         return jpaStreamer.stream(StatusCode.class)
-                .map(StatusCode::getDescription)
+                .map(status -> new StatusCodeDTO(status.getId(), status.getDescription()))
                 .collect(Collectors.toList());
     }
 
