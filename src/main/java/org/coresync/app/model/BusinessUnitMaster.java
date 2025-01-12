@@ -44,6 +44,95 @@ public class BusinessUnitMaster {
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+    @Basic
+    @Column(name = "city", length = 100)
+    private String city;
+    @Basic
+    @Column(name = "state_cd", length = 100)
+    private String stateCd;
+    @Basic
+    @Column(name = "zip_cd", length = 20)
+    private String zipCd;
+    @Basic
+    @Column(name = "country", length = 20)
+    private String country;
+    @Basic
+    @Column(name = "int_sw", length = 1)
+    private String intSw;
+    @Basic
+    @Column(name = "status_cd", length = 20)
+    private String statusCd;
+
+    public BusinessUnitMaster() {};
+
+    public BusinessUnitMaster(int id, String businessUnitCode, String businessUnitName, String address, String contactNumber, String email, String taxIdentificationNumber, int jurisdictionId, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdateDate, String lastUpdatedByUser, String city, String stateCd, String zipCd, String country, String intSw, String statusCd) {
+        this.id = id;
+        this.businessUnitCode = businessUnitCode;
+        this.businessUnitName = businessUnitName;
+        this.address = address;
+        this.city = city;
+        this.stateCd = stateCd;
+        this.zipCd = zipCd;
+        this.country = country;
+        this.intSw = intSw;
+        this.statusCd = statusCd;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.taxIdentificationNumber = taxIdentificationNumber;
+        this.jurisdictionId = jurisdictionId;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
+
+    public String getStatusCd() {
+        return statusCd;
+    }
+
+    public void setStatusCd(String statusCd) {
+        this.statusCd = statusCd;
+    }
+
+    public String getIntSw() {
+        return intSw;
+    }
+
+    public void setIntSw(String intSw) {
+        this.intSw = intSw;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZipCd() {
+        return zipCd;
+    }
+
+    public void setZipCd(String zipCd) {
+        this.zipCd = zipCd;
+    }
+
+    public String getStateCd() {
+        return stateCd;
+    }
+
+    public void setStateCd(String stateCd) {
+        this.stateCd = stateCd;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public int getId() {
         return id;

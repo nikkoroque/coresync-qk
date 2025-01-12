@@ -40,19 +40,19 @@ public class BusinessUnitMasterResourceTest {
     void testGetBusinessUnitDetail() {
         given()
                 .when()
-                .get("/1")
+                .get("/2")
                 .then()
                 .statusCode(200)
-                .body("id", is(1))
-                .body("businessUnitCode", is("345"))
-                .body("businessUnitName", is("Tejon"));
+                .body("id", is(2))
+                .body("businessUnitCode", is("X01"))
+                .body("businessUnitName", is("Test"));
     }
 
     @Test
     void testValidateBusinessUnitExists() {
         given()
                 .when()
-                .get("/validate/id/1")
+                .get("/validate/id/2")
                 .then()
                 .statusCode(409)
                 .body("message", is("Business Unit exists"));
@@ -62,7 +62,7 @@ public class BusinessUnitMasterResourceTest {
     void testValidateBusinessUnitDuplicate() {
         given()
                 .when()
-                .get("/validate/cd/345")
+                .get("/validate/cd/X01")
                 .then()
                 .statusCode(409)
                 .body("message", is("Business Unit already exists."));
@@ -74,10 +74,16 @@ public class BusinessUnitMasterResourceTest {
         mockBusinessUnit.setBusinessUnitCode("BU002");
         mockBusinessUnit.setBusinessUnitName("New Business Unit");
         mockBusinessUnit.setAddress("456 Business St");
+        mockBusinessUnit.setCity("San Francisco");
+        mockBusinessUnit.setStateCd("California");
+        mockBusinessUnit.setZipCd("90731-23456");
+        mockBusinessUnit.setCountry("USA");
+        mockBusinessUnit.setIntSw("N");
+        mockBusinessUnit.setStatusCd("ACTIVE");
         mockBusinessUnit.setContactNumber("987-654-3210");
         mockBusinessUnit.setEmail("new@business.com");
         mockBusinessUnit.setTaxIdentificationNumber("TIN67890");
-        mockBusinessUnit.setJurisdictionId(200);
+        mockBusinessUnit.setJurisdictionId(1);
         mockBusinessUnit.setCreationDate(OffsetDateTime.now());
         mockBusinessUnit.setCreatedByUser("QKDEV");
         mockBusinessUnit.setLastUpdateDate(OffsetDateTime.now());
