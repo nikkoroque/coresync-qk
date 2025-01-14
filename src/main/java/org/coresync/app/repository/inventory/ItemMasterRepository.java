@@ -27,8 +27,8 @@ public class ItemMasterRepository {
                         item.getItemId(),
                         item.getItemDescr(),
                         item.getBuId(),
-                        String.valueOf(item.getInvClsCd()),
-                        String.valueOf(item.getStatCd()),
+                        item.getInvClsCd(),
+                        item.getStatCd(),
                         item.getPricingCost(),
                         item.getCwtSw(),
                         item.getSplrId()
