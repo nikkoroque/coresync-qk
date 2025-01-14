@@ -2,7 +2,7 @@ package org.coresync.app.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "item_master", schema = "inventory_mgt", catalog = "coresync")
@@ -124,16 +124,63 @@ public class ItemMaster {
     private Integer safeStckCase;
     @Basic
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private OffsetDateTime creationDate;
     @Basic
     @Column(name = "created_by_user")
     private String createdByUser;
     @Basic
     @Column(name = "last_updated_date")
-    private Timestamp lastUpdatedDate;
+    private OffsetDateTime lastUpdatedDate;
     @Basic
     @Column(name = "last_updated_by_user")
     private String lastUpdatedByUser;
+
+    public ItemMaster() {}
+
+    public ItemMaster(int itemId, String buId, String manId, String splrId, String shelfLifeTypCd, int invClsCd, int invCd, int hzrdCd, int statCd, String trkItemCd, String unitUomCd, int prodCd, Integer upc, String ordrGtin, Integer shpGtin, String itemDescr, String imgLink, String seasonSw, Double pricingCost, String packSz, Integer unitQty, Integer unitSz, Double shpWgt, Double netWgt, Double itemCube, String cwtSw, Integer parntItemNum, String allwRcptSw, Integer ti, Integer hi, Integer mstrPackFctor, Integer ttlShelfLife, Integer rcvgShelfLife, Integer custAge, Integer custShelfLife, Integer rcvgAge, Integer safeStckDay, OffsetDateTime creationDate, String createdByUser, OffsetDateTime lastUpdatedDate, String lastUpdatedByUser) {
+        this.itemId = itemId;
+        this.buId = buId;
+        this.manId = manId;
+        this.splrId = splrId;
+        this.shelfLifeTypCd = shelfLifeTypCd;
+        this.invClsCd = invClsCd;
+        this.invCd = invCd;
+        this.hzrdCd = hzrdCd;
+        this.statCd = statCd;
+        this.trkItemCd = trkItemCd;
+        this.unitUomCd = unitUomCd;
+        this.prodCd = prodCd;
+        this.upc = upc;
+        this.ordrGtin = ordrGtin;
+        this.shpGtin = shpGtin;
+        this.itemDescr = itemDescr;
+        this.imgLink = imgLink;
+        this.seasonSw = seasonSw;
+        this.pricingCost = pricingCost;
+        this.packSz = packSz;
+        this.unitQty = unitQty;
+        this.unitSz = unitSz;
+        this.shpWgt = shpWgt;
+        this.netWgt = netWgt;
+        this.itemCube = itemCube;
+        this.cwtSw = cwtSw;
+        this.parntItemNum = parntItemNum;
+        this.allwRcptSw = allwRcptSw;
+        this.ti = ti;
+        this.hi = hi;
+        this.mstrPackFctor = mstrPackFctor;
+        this.ttlShelfLife = ttlShelfLife;
+        this.rcvgShelfLife = rcvgShelfLife;
+        this.custAge = custAge;
+        this.custShelfLife = custShelfLife;
+        this.rcvgAge = rcvgAge;
+        this.safeStckDay = safeStckDay;
+        this.safeStckCase = safeStckCase;
+        this.creationDate = creationDate;
+        this.createdByUser = createdByUser;
+        this.lastUpdatedDate = lastUpdatedDate;
+        this.lastUpdatedByUser = lastUpdatedByUser;
+    }
 
     public int getItemId() {
         return itemId;
@@ -439,11 +486,11 @@ public class ItemMaster {
         this.safeStckCase = safeStckCase;
     }
 
-    public Timestamp getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -455,11 +502,11 @@ public class ItemMaster {
         this.createdByUser = createdByUser;
     }
 
-    public Timestamp getLastUpdatedDate() {
+    public OffsetDateTime getLastUpdatedDate() {
         return lastUpdatedDate;
     }
 
-    public void setLastUpdatedDate(Timestamp lastUpdatedDate) {
+    public void setLastUpdatedDate(OffsetDateTime lastUpdatedDate) {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
