@@ -118,5 +118,19 @@ public class ItemMasterResource {
         }
     }
 
+    @GET
+    @Path("/validate/id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Validate Item existence by ID.", description = "Checks if the item exists.")
+    public Response validateItemExists(@PathParam("id") int id) {
+        boolean exists = itemMasterRepository.validateItemExists(id);
+
+        if (exists) {
+            return Response.status(Response.Status.CONFLICT).entity("{\"message\":\"Item ID exists\", \"ID\":" + id + "}")
+                    .build();
+        } else {
+            return Response.ok("{\"message\":\"Item ID not found\", \"ID\":" + id + "}").build();
+        }
+    }
 
 }
