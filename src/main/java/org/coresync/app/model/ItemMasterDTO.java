@@ -7,8 +7,8 @@ public class ItemMasterDTO {
     private int itemId;
     private String itemDesc;
     private String buId;
-    private String invClsCd;
-    private String statusCd;
+    private int invClsCd;
+    private int statusCd;
     private Double pricingCost;
     private String cwtSw;
     private String splrId;
@@ -20,7 +20,7 @@ public class ItemMasterDTO {
     }
 
     // Use for getting item list for Item Master view Table
-    public ItemMasterDTO(int itemId, String itemDesc, String buId, String invClsCd, String statusCd, Double pricingCost, String cwtSw, String splrId) {
+    public ItemMasterDTO(int itemId, String itemDesc, String buId, int invClsCd, int statusCd, Double pricingCost, String cwtSw, String splrId) {
         this.itemId = itemId;
         this.itemDesc = itemDesc;
         this.buId = buId;
@@ -55,19 +55,19 @@ public class ItemMasterDTO {
         this.buId = buId;
     }
 
-    public String getInvClsCd() {
+    public int getInvClsCd() {
         return invClsCd;
     }
 
-    public void setInvClsCd(String invClsCd) {
+    public void setInvClsCd(int invClsCd) {
         this.invClsCd = invClsCd;
     }
 
-    public String getStatusCd() {
+    public int getStatusCd() {
         return statusCd;
     }
 
-    public void setStatusCd(String statusCd) {
+    public void setStatusCd(int statusCd) {
         this.statusCd = statusCd;
     }
 
